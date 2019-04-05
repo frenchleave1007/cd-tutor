@@ -1,0 +1,130 @@
+.details{
+    // border: 1px solid red;
+    .el-row{
+        // border: 1px solid red;
+    }
+    .details-row1{
+        background-image: radial-gradient(ellipse farthest-corner at 50% 50%,rgb(116, 187, 121),rgb(122, 207, 122));
+        .details-top{
+            width: 1190px;
+            margin: 30px auto;
+            // border: 1px solid red;
+            .el-col{
+                // border: 1px solid red;
+                p{
+                    font-size: 22px;
+                    line-height: 35px;
+                }
+                .name,.card{
+                    padding-left: 50px;
+                }
+                .dis{
+                    font-size: 16px;
+                    margin-top: 30px;
+
+                }
+            }
+            .details-top-left{
+                text-align: center;
+                img{
+                    width: 200px;
+                    height: 200px;
+                    border-radius: 50%;
+                    padding: 20px 0;
+                }
+            }
+            .details-top-right{
+                dt,dd{
+                    font-size: 18px;
+                    // padding-left: 50px;
+                    line-height: 40px;
+                    display: inline-block;
+                }
+                dt{
+                    font-size: 16px;
+                    margin-left: 50px;
+                }
+                .honor{
+                    display: block;
+                    margin-left: 50px;
+                    overflow: hidden;
+                    text-overflow:ellipsis;
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
+    .details-content{
+        width: 1190px;
+        margin: 50px auto;
+        .details-content-title{
+            height: 40px;
+            background-color: #67C23A;
+            p{
+                font-size: 22px;
+                line-height: 40px;
+                padding-left: 20px;
+                color: #fff;
+            }
+        }
+        .details-list{
+            border: 1px solid #ccc;
+            margin-top: 20px;
+            overflow: hidden;
+            .el-col:first-of-type{
+                // border: 1px solid red;
+                padding: 20px;
+                .details-wrapper{
+                    width: 100%;
+                    margin: 20px 0;
+                    display: flex;
+                    .details-list-title{
+                        flex: 0 0 80px;
+                        font-size: 16px;
+                        color: #4c4c4c;
+                        line-height: 30px;
+                        // border: 1px solid red;
+                    }
+                    .details-list-content{
+                        // border: 1px solid red;
+                        font-size: 18px;
+                        line-height: 30px;
+                        span{
+                            padding-right: 5px;
+                        }
+                    }
+                }
+            }
+            // .el-col:last-of-type{
+            //     // border: 1px solid green;
+            //     .order{
+            //         border: 1px solid #67C23A;
+            //         width: 350px;
+            //         // height: 500px;
+            //         margin: 20px auto;
+            //         .order-row{
+            //             padding-left: 40px;
+            //             padding-top: 20px;
+            //         }
+            //         span{
+            //             font-size: 16px;
+            //             color: #4c4c4c;
+            //         }
+            //         .el-input{
+            //             width: 200px;
+            //         }
+            //         .el-button{
+            //             width: 150px;
+            //             margin-top: 35px;
+            //             margin-left: 40px;
+            //             margin-bottom: 20px;
+            //         }
+            //         .order-title{
+            //             font-size: 22px;
+            //             color: #000;
+            //         }
+            //     }
+            // }
+        }
+    }
+}

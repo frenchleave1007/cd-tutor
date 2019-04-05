@@ -1,0 +1,66 @@
+.main{
+    // width: 1190px;
+    // height: 2000px;
+    .el-row{
+        width: 1190px;
+        margin: 0 auto;
+        // border: 1px solid red;
+        .gold-teacher{
+            width: 200px;
+            margin: 0 auto;
+            padding: 15px;
+            span{
+               font-size: 24px;
+                text-align: center;
+                line-height: 24px;
+                padding: 0 5px;
+            }
+            img{
+                width: 30px;
+                height: 30px;
+            }
+        }
+        .teacher{
+            position: relative;
+            border: 1px solid #ccc;
+            width: 140px;
+            height:230px;
+            margin-left: 23px;
+            float: left;
+            img{
+                position: absolute;
+                width: 120px;
+                height: 120px;
+                top: 5px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            p{
+                width: 100%;
+                text-align: center;
+            }
+            .teacher-name{
+                position: absolute;
+                top: 135px;
+            }
+            .edu{
+                position: absolute;
+                top: 160px;
+            }
+            .dis{
+                position: absolute;
+                height: 40px;
+                top: 185px;
+                color: #ababab;
+                text-align: left;
+                // border: 1px solid red;
+                font-size: 14px;
+                overflow:hidden; 
+                text-overflow:ellipsis;
+                display:-webkit-box; 
+                -webkit-box-orient:vertical;
+                -webkit-line-clamp:2; 
+            }
+        }
+    }
+}

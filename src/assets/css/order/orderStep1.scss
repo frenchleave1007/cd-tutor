@@ -1,0 +1,27 @@
+.order{
+    border: 1px solid #67C23A;
+    width: 350px;
+    height: 500px;
+    margin: 20px auto;
+    .order-row{
+        padding-left: 40px;
+        padding-top: 20px;
+    }
+    span{
+        font-size: 16px;
+        color: #4c4c4c;
+    }
+    .el-input{
+        width: 200px;
+    }
+    .el-button{
+        width: 150px;
+        margin-top: 35px;
+        margin-left: 40px;
+        margin-bottom: 20px;
+    }
+    .order-title{
+        font-size: 22px;
+        color: #000;
+    }
+}

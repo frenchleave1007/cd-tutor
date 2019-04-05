@@ -1,0 +1,59 @@
+.teacher-list{
+    width: 1190px;
+    margin: 0 auto;
+    // border: 1px solid red;
+    margin-top: 15px;
+    .t-nav{
+        border-bottom: 3px solid #67C23A;
+        padding-bottom: 10px;
+        .el-breadcrumb__inner{
+            font-size: 24px;
+        }
+    }
+    .t-search{
+        margin-top: 10px;
+        dl{
+            border-bottom: 1px dashed #ccc;
+            // clear: both;
+            dt,dd{
+                font-size: 14px;
+                // width: 64px;
+                line-height: 50px;
+                display: inline-block;
+            }
+            dt{
+                width: 80px;
+            }
+            dd{
+                margin-right: 9px;
+                .any{
+                    color: #67C23A;
+                }
+               a{
+                   color: #555;
+                   &:hover{
+                    color: #67C23A;
+                }
+               }
+            }
+        }
+    }
+    .fenye-btn{
+        width: 500px;
+        margin: 0 auto;
+        margin-top: 20px;
+        .page-num{
+            .el-pager{
+                .number.active{
+                    background-color: #67C23A;
+                    &:hover{
+                        color: #555;
+                    }
+                }
+                .number:hover{
+                    color: #67C23A;
+                }
+            }
+        }
+    }
+}

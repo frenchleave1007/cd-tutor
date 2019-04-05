@@ -1,0 +1,25 @@
+.order-page{
+    width: 1190px;
+    margin: 0 auto;
+    .el-row{
+        margin: 50px 0;
+        // border: 1px solid red;
+    }
+    .steps-btn{
+        width: 500px;
+        margin: 50px auto;
+        .el-button{
+            width: 200px;
+            &:last-of-type{
+                float: right;
+            }
+        }
+    }
+    .back{
+        width: 200px;
+        margin: 50px auto;
+        .el-button{
+            width: 100%;
+        }
+    }
+}

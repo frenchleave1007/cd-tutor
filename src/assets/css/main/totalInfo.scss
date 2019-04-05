@@ -1,0 +1,26 @@
+.total-info{
+    width: 100%;
+    // height: 200px;
+    // border: 1px solid red;
+    .teacher-title,.parent-title{
+        margin-top: 15px;
+        // width: 1170px;;
+        height: 40px;
+        // font-size: 24px;
+        // border: 1px solid red;
+        // padding-left: 20px;
+        background-color: #67C23A;
+        span{
+            font-size: 22px;
+            line-height: 40px;
+            padding-left: 20px;
+            color: #fff;
+            &:last-child{
+                float: right;
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}

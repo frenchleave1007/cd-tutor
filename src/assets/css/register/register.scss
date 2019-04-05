@@ -1,0 +1,52 @@
+.register{
+    .el-row:first-of-type{
+        border-bottom: 4px solid #67C23A;
+    }
+    .register-top{
+        width: 1190px;
+        margin: 0 auto;
+        .el-col{
+            // border: 1px solid red;
+        }
+        img{
+            width: 120px;
+            height: 50px;
+            padding: 5px 0;
+            padding-left: 20px;
+            cursor: pointer;
+        }
+        .register-top-right{
+            // border: 1px solid red;
+            width: 200px;
+            margin-left: 380px;
+            .hasNum{
+                line-height: 64px;
+            }
+        }
+    }
+    .register-content{
+        width: 1190px;
+        margin: 100px auto;
+        border: 1px solid #ccc;
+        .el-form{
+            padding: 50px;
+            .el-form-item__content{
+                width: 300px;
+            }
+            .is-checked{
+                border-color: #67C23A;
+                span{
+                    color: #67C23A;
+                }
+                .el-radio__inner{
+                    border-color: #67C23A;
+                    background: #67C23A;
+                }
+            }
+            .el-button--primary{
+                border-color: #67C23A;
+                background: #67C23A;
+            }
+        }
+    }
+}
