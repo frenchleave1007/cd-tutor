@@ -26,7 +26,7 @@
             }
             dd{
                 margin-right: 9px;
-                .any{
+                .on{
                     color: #67C23A;
                 }
                a{
@@ -36,6 +36,19 @@
                 }
                }
             }
+            // dd{
+            //     margin-right: 9px;
+            //     color: #555;
+            //     &:hover{
+            //         color: #67C23A;
+            //     }
+            // }
+            // dd.on{
+            //     color: #67C23A;
+            // }
+            // dd a{
+            //     color: inherit;
+            // }
         }
     }
     .fenye-btn{

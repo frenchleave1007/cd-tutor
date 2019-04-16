@@ -13,6 +13,9 @@ const OrderStep2 = () => import('@/components/order/OrderStep2')
 const Pay = () => import('@/components/order/Pay')
 const PayOk = () => import('@/components/order/PayOk')
 const Waiting = () => import('@/components/order/Waiting')
+const BgIndex = () => import('@/components/backstage/BgIndex')
+const BgLogin = () => import('@/components/backstage/BgLogin')
+const TotalInfo = () => import('@/components/backstage/TotalInfo')
 
 Vue.use(Router)
 
@@ -91,6 +94,24 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/bgLogin',
+      name: 'bgLogin',
+      component: BgLogin
+    },
+    {
+      path: '/bgIndex',
+      name: 'bgIndex',
+      component: BgIndex,
+      redirect: '/totalInfo',
+      children:[
+        {
+          path: '/totalInfo',
+          name: 'totalInfo',
+          component: TotalInfo
+        },
+      ]
     }
   ]
 })

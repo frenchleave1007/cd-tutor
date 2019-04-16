@@ -39,7 +39,7 @@
     <div class="copy">
       <p>合作联系：frenchl1007@qq.com</p>
       <p>Copyright © 2019 cd-tutor. Powered By Frenchleave</p>
-      <router-link tag="a" to="/">@cd-tutor</router-link>
+      <router-link tag="a" to="/bgLogin">@cd-tutor</router-link>
     </div>
   </div>
 </template>

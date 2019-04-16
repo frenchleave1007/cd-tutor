@@ -1,33 +1,19 @@
 <template>
   <div class="login">
-    <el-row>
-      <div class="login-top">
-        <el-col :span="12">
-          <router-link to="/">
-            <img src="../../../static/images/logo.png" alt>
-          </router-link>
-        </el-col>
-        <el-col :span="12">
-          <div class="login-top-right">
-            <span class="hasNum">还没有账号？</span>
-            <router-link :to="{name:'register'}">
-              <el-button type="success">去注册</el-button>
-            </router-link>
-          </div>
-        </el-col>
-      </div>
-    </el-row>
     <el-row class="login-content">
       <el-col :span="12">
-          <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1554374631183&di=5736021b2110c1f84ac705b989d247db&imgtype=0&src=http%3A%2F%2Fs15.sinaimg.cn%2Fmw690%2F003sJslDzy7j2Y2eSwCee%26690" alt="">
+        <img
+          src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1554374631183&di=5736021b2110c1f84ac705b989d247db&imgtype=0&src=http%3A%2F%2Fs15.sinaimg.cn%2Fmw690%2F003sJslDzy7j2Y2eSwCee%26690"
+          alt
+        >
       </el-col>
       <el-col :span="12">
-          <p class="login-title">账号登录</p>
+        <p class="login-title">后台登录</p>
         <el-form
-          :model="loginForm"
+          :model="bgLoginForm"
           status-icon
           :rules="rules"
-          ref="loginForm"
+          ref="bgLoginForm"
           label-width="100px"
           class="demo-ruleForm"
         >
@@ -35,7 +21,7 @@
             <el-input
               type="text"
               placeholder="请输入11位手机号"
-              v-model="loginForm.phone"
+              v-model="bgLoginForm.phone"
               autocomplete="off"
             ></el-input>
           </el-form-item>
@@ -43,13 +29,13 @@
             <el-input
               type="password"
               placeholder="请输入密码"
-              v-model="loginForm.password"
+              v-model="bgLoginForm.password"
               autocomplete="off"
             ></el-input>
           </el-form-item>
           <p class="forget">忘记密码？</p>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('loginForm')">登录</el-button>
+            <el-button type="primary" @click="submitForm('bgLoginForm')">登录</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -79,7 +65,7 @@ export default {
       }
     };
     return {
-      loginForm: {
+      bgLoginForm: {
         phone: "",
         password: ""
       },
@@ -93,7 +79,14 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          var self = this;//this保留起来
+          // 收集用户名和密码发送给后端
+          this.axios.post('/api/bglogin',{
+              phone:self.bgLoginForm.phone,
+              password:self.bgLoginForm.password
+          }).then(response => {
+            console.log("接收后端响应登录请求的数据：",response.data)
+          })
         } else {
           console.log("error submit!!");
           return false;
