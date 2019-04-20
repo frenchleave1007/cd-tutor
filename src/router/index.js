@@ -16,6 +16,8 @@ const Waiting = () => import('@/components/order/Waiting')
 const BgIndex = () => import('@/components/backstage/BgIndex')
 const BgLogin = () => import('@/components/backstage/BgLogin')
 const TotalInfo = () => import('@/components/backstage/TotalInfo')
+const AdminManage = () => import('@/components/backstage/AdminManage')
+const AddAdmin = () => import('@/components/backstage/AddAdmin')
 
 Vue.use(Router)
 
@@ -110,6 +112,16 @@ export default new Router({
           path: '/totalInfo',
           name: 'totalInfo',
           component: TotalInfo
+        },
+        {
+          path: '/adminManage',
+          name: 'adminManage',
+          component: AdminManage
+        },
+        {
+          path: '/addAdmin',
+          name: 'addAdmin',
+          component: AddAdmin
         },
       ]
     }

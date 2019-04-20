@@ -1,5 +1,22 @@
 <template>
-  <div class="login">
+  <div class="login bgLogin">
+    <el-row>
+      <div class="login-top">
+        <el-col :span="12">
+          <router-link to="/">
+            <img src="../../../static/images/logo.png" alt>
+          </router-link>
+        </el-col>
+        <el-col :span="12">
+          <div class="login-top-right">
+            <span class="hasNum"></span>
+            <router-link :to="{name:'defaultPage'}">
+              <el-button type="success">返回首页</el-button>
+            </router-link>
+          </div>
+        </el-col>
+      </div>
+    </el-row>
     <el-row class="login-content">
       <el-col :span="12">
         <img
@@ -17,6 +34,10 @@
           label-width="100px"
           class="demo-ruleForm"
         >
+          <div class="errMsg">
+            <span v-if="errMsg">用户名或密码错误</span>
+          </div>
+
           <el-form-item label="手机号" prop="phone">
             <el-input
               type="text"
@@ -35,7 +56,8 @@
           </el-form-item>
           <p class="forget">忘记密码？</p>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('bgLoginForm')">登录</el-button>
+            <el-button class="loginbtn" type="primary" @click="submitForm('bgLoginForm')">登录</el-button>
+            <el-button v-if="hasCookie" class="loginbtn" type="primary" @click="loginByCookie">已经登陆过了，立即登录</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -69,6 +91,8 @@ export default {
         phone: "",
         password: ""
       },
+      errMsg: false,
+      hasCookie:false,
       rules: {
         phone: [{ validator: checkPhone, trigger: "blur" }],
         password: [{ validator: checkPassword, trigger: "blur" }]
@@ -77,24 +101,45 @@ export default {
   },
   methods: {
     submitForm(formName) {
+      this.errMsg = false;
       this.$refs[formName].validate(valid => {
         if (valid) {
-          var self = this;//this保留起来
+          var self = this; //this保留起来
           // 收集用户名和密码发送给后端
-          this.axios.post('/api/bglogin',{
-              phone:self.bgLoginForm.phone,
-              password:self.bgLoginForm.password
-          }).then(response => {
-            console.log("接收后端响应登录请求的数据：",response.data)
-          })
+          this.axios
+            .post("/api/adminLogin", {
+              phone: self.bgLoginForm.phone,
+              password: self.bgLoginForm.password
+            })
+            .then(response => {
+              console.log("接收后端响应登录请求的数据：", response.data);
+              if (response.data.status == 'ok') {
+                sessionStorage.adminNum = response.data.adminNum;
+                sessionStorage.adminName = response.data.adminName;
+                // this.$store.commit("setAdminNum", response.data.adminNum);
+                this.$router.push("/bgIndex");
+              } else {
+                self.errMsg = true;
+              }
+            });
         } else {
           console.log("error submit!!");
           return false;
         }
       });
     },
+    loginByCookie(){
+      this.$router.push({ path: '/bgIndex' })
+    },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    }
+  },
+  created:function(){
+    // console.log(document.cookie.indexOf('admin_num')) 判断cookie中是否有admin_num这个字段
+    // console.log(sessionStorage)
+    if(sessionStorage.adminName){ // 判断时候含有这个session字段
+      this.hasCookie = true;
     }
   }
 };
@@ -102,4 +147,8 @@ export default {
 
 <style lang="scss">
 @import "@/assets/css/login/login.scss";
+.bgLogin {
+  width: 100%;
+  height: 100%;
+}
 </style>

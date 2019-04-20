@@ -49,7 +49,7 @@
           </el-form-item>
           <p class="forget">忘记密码？</p>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('loginForm')">登录</el-button>
+            <el-button class="loginbtn" type="primary" @click="submitForm('loginForm')">登录</el-button>
           </el-form-item>
         </el-form>
       </el-col>

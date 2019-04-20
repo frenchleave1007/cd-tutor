@@ -8,7 +8,8 @@ function createConnection(){
         port:"3306",
         user:"root",
         password:"frenchleave",
-        database:"school"
+        database:"cdtutor",
+        multipleStatements:true
     });
     return connection;
 }

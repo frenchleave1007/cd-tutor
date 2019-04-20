@@ -35,25 +35,33 @@
             color: #333;
             margin-left: 100px;
             cursor: pointer;
-            margin-bottom: 50px;
+            margin-bottom: 30px;
             &:hover{
                 color: #67C23A;
                 text-decoration: underline;
             }
 
         }
+        .errMsg{
+            font-size: 14px;
+            color: #f00;
+            height: 19px;
+            margin-left: 100px;
+            margin-bottom: 10px;
+        }
         .el-form{
-            padding: 50px 50px 20px 50px;
+            padding: 30px 50px 20px 50px;
             .el-form-item__content{
                 width: 250px;
             }
             .el-form-item{
                 padding-bottom: 10px;
             }
-            .el-button{
+            .loginbtn{
                 width: 250px;
                 background-color: #67C23A;
                 border-color: #67C23A;
+                margin: 0 0 10px 0;
             }
         }
     }
