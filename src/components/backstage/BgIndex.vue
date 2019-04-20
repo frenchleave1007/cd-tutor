@@ -158,6 +158,9 @@ export default {
   watch: {
   '$route':'getPath' // 监听路由变化  改变面包屑
   },
+  created:function(){
+    this.getPath()
+  }
 };
 </script>
 

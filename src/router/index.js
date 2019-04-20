@@ -18,6 +18,7 @@ const BgLogin = () => import('@/components/backstage/BgLogin')
 const TotalInfo = () => import('@/components/backstage/TotalInfo')
 const AdminManage = () => import('@/components/backstage/AdminManage')
 const AddAdmin = () => import('@/components/backstage/AddAdmin')
+const AdminInfo = () => import('@/components/backstage/AdminInfo')
 
 Vue.use(Router)
 
@@ -122,6 +123,11 @@ export default new Router({
           path: '/addAdmin',
           name: 'addAdmin',
           component: AddAdmin
+        },
+        {
+          path: '/adminInfo',
+          name: 'adminInfo',
+          component: AdminInfo
         },
       ]
     }
