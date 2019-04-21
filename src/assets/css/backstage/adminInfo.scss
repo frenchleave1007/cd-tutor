@@ -1,0 +1,36 @@
+.admin-info{
+    width: 95%;
+    margin: 20px auto 0px;
+    border: 1px solid #ccc;
+    dl{
+        width: 400px;
+        margin: 50px auto;
+        dt{
+            // font-weight: bold;
+            font-size: 24px;
+            text-align: center;
+            line-height: 30px;
+            margin-bottom: 50px;
+        }
+        dd{
+            font-size: 20px;
+            line-height: 30px;
+            margin-bottom: 20px;
+            img{
+                width: 90px;
+                height: 90px;
+            }
+        }
+    }
+    .btn{
+        width: 400px;
+        margin: 50px auto ;
+        a{  
+            width: 100px;
+            margin-right: 75px;
+            .el-button{
+                width: 100px;
+            }
+        }
+    }
+}

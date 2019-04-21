@@ -9,7 +9,7 @@
             <router-link tag="a" :to="{name:'register'}">免费注册</router-link>
           </el-col>
           <el-col class="header-right" :span="12">
-            <span>我是老师</span>
+            <span>老师，欢迎您！</span>
             <router-link tag="a" :to="{name:'publish'}">我的发布</router-link>
             <router-link tag="a" :to="{name:'information'}">信息修改</router-link>
             <router-link tag="a" :to="{name:''}">我的订单</router-link>

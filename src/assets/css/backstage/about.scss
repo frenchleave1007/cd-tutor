@@ -1,0 +1,38 @@
+.about{
+    margin: 50px auto;
+    .row1{
+        border-bottom: 2px solid #67C23A;
+        text-align: center;
+        padding-bottom: 10px;
+        img{
+            width: 200px;
+            height: 100px;
+            vertical-align: middle;
+        }
+        span{
+            font-size: 24px;
+            font-weight: bold;
+            vertical-align: middle;
+        }
+    }
+    .row2{
+        dl{
+            dt{
+                text-align: center;
+                font-size: 24px;
+                line-height: 24px;
+                padding: 20px 0;
+            }
+            dd{
+                font-size: 20px;
+                padding: 0 0 20px 650px;
+            }
+        }
+    }
+    .row3{
+        margin-left: 650px;
+        margin-top: 100px;
+        font-size: 20px;
+        line-height: 20px;
+    }
+}

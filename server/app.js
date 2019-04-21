@@ -15,8 +15,8 @@ var querystring = require('querystring');//解析如‘a=1&b=2’为对象
 
 
 var multer = require("multer");//上传文件
-
-var uploadSingle = multer({dest: "../static/images/uploadPic/"});//指定文件上传到哪里
+console.log(__dirname)
+var uploadSingle = multer({dest: "./static/images/adminPic/"});//指定文件上传到哪里
 
 var globalConfig = require("./config");
 var loader = require("./loader");
@@ -61,9 +61,18 @@ app.get("/deleteAdmin",loader.get("/deleteAdmin")); //get请求
 app.post("/adminLogin",loader.get("/adminLogin")); //post请求
 app.post("/insertAdmin",loader.get("/insertAdmin")); //post请求
 app.post("/searchAdmin",loader.get("/searchAdmin")); //post请求
+app.post("/adminChange",uploadSingle.single("file"),loader.get("/adminChange")); //post请求
 
 console.log('服务已启动')
 
+app.get("/bg/*",function(request,response,next){//拦截器  读cookie 重定向
+    console.log(sessionStorage.adminNum);
+    if(sessionStorage.adminNum){
+        next();
+    }else{
+        response.redirect("/bgLogin");
+    }
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
