@@ -12,8 +12,9 @@
                 .header-left,.header-right{
                     height: 100%;
                     span,a{
-                        font-size: 14px;
+                        font-size: 16px;
                         line-height: 40px;
+                        margin-right: 10px;
                         color: #000;
                     }
                     a:hover{
@@ -21,15 +22,28 @@
                         color: #67C23A
                     }
                 }
+                .header-left{
+                    .userName{
+                        font-weight: bold;
+                    }
+                }
                 .header-right{
                     a{
-                        margin-left: 10px;
+                        margin-left: 15px;
                     }
                     span{
-                        margin-right: 20px;
+                        margin-right: 15px;
                     }
                     .hot-call{
                         float: right;
+                    }
+                    .logout{
+                        margin-left: 15px;
+                        cursor: pointer;
+                        &:hover{
+                            text-decoration: underline;
+                            color: #67C23A
+                        }
                     }
                 }
             }
@@ -62,7 +76,9 @@
             .loginPic{
                 height: 150px;
                 img{
-                    margin: 30px 75px 20px;;
+                    margin: 30px 75px 20px;
+                    width: 100px;
+                    height: 100px;
                 }
                 p{
                     text-align: center;
@@ -73,7 +89,14 @@
             .login-btn{
                 height: 40px;
                 margin-left: 12px;
-                margin-top: 30px;            
+                margin-top: 30px;
+                p{
+                    font-size: 24px;
+                    text-align: center;
+                    overflow : hidden;
+                    text-overflow : ellipsis;
+                    white-space : nowrap;
+                }
             }
         }
     }

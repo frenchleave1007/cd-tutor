@@ -56,12 +56,18 @@ app.use(session({ //使用session
 app.get("/getAllAdmin",loader.get("/getAllAdmin")); //get请求
 app.get("/adminLogout",loader.get("/adminLogout")); //get请求
 app.get("/deleteAdmin",loader.get("/deleteAdmin")); //get请求
-
-
 app.post("/adminLogin",loader.get("/adminLogin")); //post请求
 app.post("/insertAdmin",loader.get("/insertAdmin")); //post请求
 app.post("/searchAdmin",loader.get("/searchAdmin")); //post请求
 app.post("/adminChange",uploadSingle.single("file"),loader.get("/adminChange")); //post请求
+
+app.post("/insertUser",loader.get("/insertUser")); //post请求
+app.post("/userLogin",loader.get("/userLogin")); //post请求
+app.post("/getUserInfo",loader.get("/getUserInfo")); //post请求
+app.post("/userChange",uploadSingle.single("file"),loader.get("/userChange")); //post请求
+app.post("/insertTeacherInfo",loader.get("/insertTeacherInfo")); //post请求
+
+
 
 console.log('服务已启动')
 

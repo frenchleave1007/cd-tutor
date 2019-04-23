@@ -19,10 +19,10 @@
     </el-row>
     <el-row class="login-content">
       <el-col :span="12">
-          <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1554374631183&di=5736021b2110c1f84ac705b989d247db&imgtype=0&src=http%3A%2F%2Fs15.sinaimg.cn%2Fmw690%2F003sJslDzy7j2Y2eSwCee%26690" alt="">
+        <img src="../../../static/images/loginImg.jpg">
       </el-col>
       <el-col :span="12">
-          <p class="login-title">账号登录</p>
+        <p class="login-title">账号登录</p>
         <el-form
           :model="loginForm"
           status-icon
@@ -31,6 +31,9 @@
           label-width="100px"
           class="demo-ruleForm"
         >
+          <div class="errMsg">
+            <span v-if="errMsg">手机号或密码错误</span>
+          </div>
           <el-form-item label="手机号" prop="phone">
             <el-input
               type="text"
@@ -61,10 +64,9 @@
 export default {
   data() {
     var checkPhone = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入手机号"));
-      } else if (value.length != 11) {
-        callback(new Error("请输入11位手机号"));
+      var phoneReg = /^1[34578]\d{9}$/;
+      if (!phoneReg.test(value)) {
+        callback(new Error("格式错误！请输入正确的11位手机号"));
       } else {
         callback();
       }
@@ -79,6 +81,7 @@ export default {
       }
     };
     return {
+      errMsg:false,
       loginForm: {
         phone: "",
         password: ""
@@ -91,11 +94,29 @@ export default {
   },
   methods: {
     submitForm(formName) {
+      this.errMsg = false;
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          var self = this; //this保留起来
+          this.axios
+            .post("/api/userLogin", {
+              phone: self.loginForm.phone,
+              password: self.loginForm.password
+            })
+            .then(response => {
+              // console.log(response.data);
+              if (response.data.status == "ok") {
+                sessionStorage.userName = response.data.userName;
+                sessionStorage.userPhone = response.data.userPhone;
+                sessionStorage.userPic = response.data.userPic;
+                sessionStorage.userId = response.data.userId;
+                sessionStorage.userEmail = response.data.userEmail;
+                this.$router.push("/mainIndex");
+              } else {
+                self.errMsg = true;
+              }
+            });
         } else {
-          console.log("error submit!!");
           return false;
         }
       });

@@ -25,6 +25,10 @@ const OrderManage = () => import('@/components/backstage/OrderManage')
 const ParentInfo = () => import('@/components/backstage/ParentInfo')
 const TeacherInfo = () => import('@/components/backstage/TeacherInfo')
 const UserInfo = () => import('@/components/backstage/UserInfo')
+const InfoChange = () => import('@/components/main/InfoChange')
+const BeATeacher = () => import('@/components/main/BeATeacher')
+const FoundTeacher = () => import('@/components/main/FoundTeacher')
+const Publish = () => import('@/components/main/Publish')
 
 Vue.use(Router)
 
@@ -34,7 +38,8 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/index',
+      alias:'/',
       name: 'defaultPage',
       component: DefaultPage,
       redirect: '/mainindex',
@@ -45,25 +50,117 @@ const router = new Router({
           component: MainIndex
         },
         {
-          path: '/teacherlist',
+          path: 'teacherlist',
           name: 'teacherlist',
-          component: TeacherList
+          component: TeacherList,
+          beforeEnter(to, from, next) {
+            if (sessionStorage.userName) {
+              next();
+            } else {
+              next({
+                name: 'login'
+              })
+            }
+          }
         },
         {
-          path: '/parentlist',
+          path: 'parentlist',
           name: 'parentlist',
-          component: ParentList
+          component: ParentList,
+          beforeEnter(to, from, next) {
+            if (sessionStorage.userName) {
+              next();
+            } else {
+              next({
+                name: 'login'
+              })
+            }
+          }
         },
         {
-          path: '/details',
+          path: 'details',
           name: 'details',
-          component: Details
+          component: Details,
+          beforeEnter(to, from, next) {
+            if (sessionStorage.userName) {
+              next();
+            } else {
+              next({
+                name: 'login'
+              })
+            }
+          }
         },
         {
-          path: '/order',
+          path: 'infoChange',
+          name: 'infoChange',
+          component: InfoChange,
+          beforeEnter(to, from, next) {
+            if (sessionStorage.userName) {
+              next();
+            } else {
+              next({
+                name: 'login'
+              })
+            }
+          }
+        },
+        {
+          path: 'beATeacher',
+          name: 'beATeacher',
+          component: BeATeacher,
+          beforeEnter(to, from, next) {
+            if (sessionStorage.userName) {
+              next();
+            } else {
+              next({
+                name: 'login'
+              })
+            }
+          }
+        },
+        {
+          path: 'publish',
+          name: 'publish',
+          component: Publish,
+          beforeEnter(to, from, next) {
+            if (sessionStorage.userName) {
+              next();
+            } else {
+              next({
+                name: 'login'
+              })
+            }
+          }
+        },
+        {
+          path: 'foundTeacher',
+          name: 'foundTeacher',
+          component: FoundTeacher,
+          beforeEnter(to, from, next) {
+            if (sessionStorage.userName) {
+              next();
+            } else {
+              next({
+                name: 'login'
+              })
+            }
+          }
+        },
+        {
+          path: 'order',
           name: 'order',
           component: Order,
           redirect: 'orderStep1',
+          beforeEnter(to, from, next) {
+            if (sessionStorage.userName) {
+              next();
+            } else {
+              next({
+                name: 'login'
+              })
+            }
+          },
           children: [
             {
               path: '/orderStep1',
@@ -115,13 +212,13 @@ const router = new Router({
       component: BgIndex,
       redirect: '/bgIndex/totalInfo',
       beforeEnter(to, from, next) {
-        if(sessionStorage.adminNum){
-                next();
-              }else{
-                next({
-                  name:'bgLogin'
-                })
-              }
+        if (sessionStorage.adminNum) {
+          next();
+        } else {
+          next({
+            name: 'bgLogin'
+          })
+        }
       },
       children: [
         {
@@ -157,7 +254,7 @@ const router = new Router({
         {
           path: 'about',
           name: 'about',
-          meta: ['关于','相关信息说明'],
+          meta: ['关于', '相关信息说明'],
           component: About
         },
         {
@@ -169,19 +266,19 @@ const router = new Router({
         {
           path: 'teacherInfo',
           name: 'teacherInfo',
-          meta: ['发布信息管理','教师信息发布'],
+          meta: ['发布信息管理', '教师信息发布'],
           component: TeacherInfo
         },
         {
           path: 'parentInfo',
           name: 'parentInfo',
-          meta: ['发布信息管理','家长信息发布'],
+          meta: ['发布信息管理', '家长信息发布'],
           component: ParentInfo
         },
         {
           path: 'userInfo',
           name: 'userInfo',
-          meta: ['用户管理','所有用户'],
+          meta: ['用户管理', '所有用户'],
           component: UserInfo
         },
       ]

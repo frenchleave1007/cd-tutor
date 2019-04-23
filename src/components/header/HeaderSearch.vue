@@ -9,21 +9,20 @@
       <i slot="prefix" class="el-input__icon el-icon-edit" clearable></i>
     </el-input>
     <el-button type="success" class="search-btn">搜索</el-button>
-    <!-- <div class="suggest">
-      <p>热门搜索：</p>
-      <p>
-        <span class="hot-title">课程名称：</span>
-        <a href="#" v-for="(item, index) in lessonList" :key="index">{{item}}</a>
-      </p>
-      <p>
-        <span class="hot-title">教师名称：</span>
-        <a href="#" v-for="(item, index) in teacherList" :key="index">{{item}}</a>
-      </p>
-      <p>
-        <span class="hot-title">教学阶段：</span>
-        <a href="#" v-for="(item, index) in timeList" :key="index">{{item}}</a>
-      </p>
-    </div> -->
+    <div class="choose">
+      <div>
+        <img src="../../../static/images/teacher.svg">
+        <router-link to="beATeacher">
+          <p>我要当老师</p>
+        </router-link>
+      </div>
+      <div>
+        <img src="../../../static/images/student.svg">
+        <router-link to="foundTeacher">
+          <p>马上找家教</p>
+        </router-link>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -32,15 +31,12 @@ export default {
   data() {
     return {
       input: "",
-      radio:'',
-      lessonList:['数学','数学','数学','数学','数学','数学','数学'],
-      teacherList:['数学','数学','数学','数学','数学','数学','数学'],
-      timeList:['数学','数学','数学','数学','数学','数学','数学']
+      radio: ""
     };
   }
 };
 </script>
 
 <style lang="scss">
-@import '@/assets/css/header/search.scss'
+@import "@/assets/css/header/search.scss";
 </style>

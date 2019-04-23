@@ -35,7 +35,7 @@
           class="demo-ruleForm"
         >
           <div class="errMsg">
-            <span v-if="errMsg">用户名或密码错误</span>
+            <span v-if="errMsg">手机号或密码错误</span>
           </div>
 
           <el-form-item label="手机号" prop="phone">

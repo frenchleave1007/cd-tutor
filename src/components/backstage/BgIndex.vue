@@ -103,7 +103,7 @@ export default {
       return sessionStorage.adminName;
     },
     defaultActive: function() {
-      console.log(this.$route.path.replace("/bgIndex/", ""));
+      // console.log(this.$route.path.replace("/bgIndex/", ""));
       this.$route.path.replace("/bgIndex/", "");
     }
   }

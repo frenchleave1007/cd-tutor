@@ -26,12 +26,21 @@
     }
     .register-content{
         width: 1190px;
+        height: 474px;
         margin: 100px auto;
         border: 1px solid #ccc;
         .el-form{
             padding: 50px;
+            .errTips{
+                font-size: 12px;
+                padding-left: 5px;
+                color: #F56C6C;
+                line-height: 1;
+            }
             .el-form-item__content{
-                width: 300px;
+                .el-input{
+                    width: 300px;
+                }
             }
             .is-checked{
                 border-color: #67C23A;
@@ -46,6 +55,24 @@
             .el-button--primary{
                 border-color: #67C23A;
                 background: #67C23A;
+            }
+        }
+        .regSuccess{
+            width: 500px;
+            height: 200px;
+            // border: 1px solid red;
+            margin: 87px auto;
+            p{
+                font-size: 28px;
+                text-align: center;
+                i{
+                    margin-right: 10px;
+                    color: #67C23A;
+                }
+            }
+            .el-button{
+                margin-top: 50px;
+                margin-left: 100px;
             }
         }
     }

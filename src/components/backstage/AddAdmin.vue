@@ -118,21 +118,12 @@ export default {
     submitForm(formName) {
       this.adminNumUn = false;
       this.phoneUn = false;
-      console.log(sessionStorage.adminName)
-      console.log(sessionStorage.adminNum)
-      console.log(this.getNowDate())
+      // console.log(sessionStorage.adminName)
+      // console.log(sessionStorage.adminNum)
+      // console.log(this.getNowDate())
       this.$refs[formName].validate(valid => {
         if (valid) {
           var self = this; //this保留起来
-
-          // var file = document.getElementById("file").files[0];
-          // var form = new FormData();
-          // form.append("file", file);
-          // var config = {
-          //   headers:{'Content-Type':'multipart/form-data'}
-          // };  //添加请求头
-
-          // alert("submit!");
           this.axios
             .post("/api/insertAdmin", {
               name: self.ruleForm.name,

@@ -1,0 +1,33 @@
+.userInfoChange{
+    width: 1190px;
+    // height: 600px;
+    border: 1px solid #67C23A;
+    margin: 20px auto;
+    padding: 20px 0;
+    .el-form{
+        width: 800px;
+        .el-input{
+            width: 300px;
+        }
+        .errTips{
+            font-size: 12px;
+            padding-left: 5px;
+            color: #F56C6C;
+            line-height: 1;
+        }
+    }
+    .success{
+        width: 300px;
+        height: 300px;
+        text-align: center;
+        margin: 20px auto;
+        p{
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .el-button{
+            margin-top: 50px;
+            width: 200px;
+        }
+    }
+}
