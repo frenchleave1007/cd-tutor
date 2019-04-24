@@ -159,6 +159,7 @@ export default {
     return {
       searchList: [],
       ruleForm: {
+        teacher_id: "",
         name: "",
         phone: "",
         email: "",
@@ -197,31 +198,33 @@ export default {
         if (valid) {
           var self = this; //this保留起来
           this.axios
-            .post("/api/insertTeacherInfo", {
-              name:self.ruleForm.name,
-              phone:self.ruleForm.phone,
-              email:self.ruleForm.email,
-              card:self.ruleForm.card,
-              pic_path:sessionStorage.userPic,
-              sex:self.ruleForm.sex,
-              graduated:self.ruleForm.graduated,
-              education:self.ruleForm.education,
-              teachage:self.ruleForm.teachage,
-              teacherjob:self.ruleForm.teacherjob,
-              teachlesson:self.ruleForm.teachlesson.join(','),
-              teachtime:self.ruleForm.teachtime.join(','),
-              teachtimedis:self.ruleForm.teachtimedis,
-              price:self.ruleForm.price,
-              teacharea:self.ruleForm.teacharea.join(','),
-              areadis:self.ruleForm.areadis,
-              description:self.ruleForm.description,
+            .post("/api/teacherInfoChange", {
+              teacher_id: sessionStorage.userId,
+              name: self.ruleForm.name,
+              phone: self.ruleForm.phone,
+              email: self.ruleForm.email,
+              card: self.ruleForm.card,
+              pic_path: sessionStorage.userPic,
+              sex: self.ruleForm.sex,
+              graduated: self.ruleForm.graduated,
+              education: self.ruleForm.education,
+              teachage: self.ruleForm.teachage,
+              teacherjob: self.ruleForm.teacherjob,
+              teachlesson: self.ruleForm.teachlesson.join(","),
+              teachtime: self.ruleForm.teachtime.join(","),
+              teachtimedis: self.ruleForm.teachtimedis,
+              price: self.ruleForm.price,
+              teacharea: self.ruleForm.teacharea.join(","),
+              areadis: self.ruleForm.areadis,
+              description: self.ruleForm.description,
               createTime: self.getNowDate(),
-              flag:"未通过"
+              flag: "未通过",
+              type: "add"
             })
             .then(response => {
               // console.log(response.data);
               if (response.data.status == "ok") {
-                this.insertSuccess()
+                this.insertSuccess();
               }
             });
         } else {
@@ -245,16 +248,18 @@ export default {
       return str;
     },
     insertSuccess() {
-        this.$confirm('信息已经提交，请等待管理员审核通过', '信息提交成功', {
-          confirmButtonText: '查看',
-          cancelButtonText: '返回首页',
-          type: 'success'
-        }).then(() => {
-          this.$router.replace("publish")      
-        }).catch(() => {
-          this.$router.replace("/index")      
+      this.$confirm("信息已经提交，请等待管理员审核通过", "信息提交成功", {
+        confirmButtonText: "查看",
+        cancelButtonText: "返回首页",
+        type: "success"
+      })
+        .then(() => {
+          this.$router.replace("publish");
+        })
+        .catch(() => {
+          this.$router.replace("/index");
         });
-      }
+    }
   },
   created() {
     this.ruleForm.name = sessionStorage.userName;
@@ -262,12 +267,15 @@ export default {
     this.ruleForm.email = sessionStorage.userEmail;
     this.ruleForm.card = ("00000" + sessionStorage.userId).slice(-5);
     var self = this;
-    this.$store.state.searchList.forEach(function(value, index) {
+    var tempArr = JSON.parse(JSON.stringify(this.$store.state.searchList));
+    tempArr.forEach(function(value, index) {
       value.value.shift();
       // console.log(value);
       self.searchList.push(value);
     });
-    // console.log(this.searchList);
+  },
+  mounted() {
+    this.resetForm("ruleForm");
   }
 };
 </script>

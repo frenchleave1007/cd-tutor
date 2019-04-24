@@ -52,12 +52,17 @@ function userChange(params, success) {
     connection.end();//关闭连接
 }
 
-function insertTeacherInfo(params, success) {
-    var insertSql = "insert into teacher (name,phone,email,card,pic_path,sex,graduated,education,teachage,teacherjob,teachlesson,teachtime,teachtimedis,price,teacharea,areadis,description,create_time,flag) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+function teacherInfoChange(params,type,id, success) {
+    var sql = "";
+    if(type == 'add'){
+        sql = "insert into teacher (teacher_id,name,phone,email,card,pic_path,sex,graduated,education,teachage,teacherjob,teachlesson,teachtime,teachtimedis,price,teacharea,areadis,description,create_time,flag) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+    }else if(type == 'update'){
+        sql = "update teacher set teacher_id = ?,name = ?,phone = ?,email = ?,card = ?,pic_path = ?,sex = ?,graduated = ?,education = ?,teachage = ?,teacherjob = ?,teachlesson = ?,teachtime = ?,teachtimedis = ?,price = ?,teacharea = ?,areadis = ?,description = ?,create_time = ?,flag = ? where id = "+ id +";";
+    }
     // console.log(params)
     var connection = dbutil.createConnection();
     connection.connect();//创建一个连接
-    connection.query(insertSql, params, function (error, result) {
+    connection.query(sql, params, function (error, result) {
         if (error == null) {
             // console.log(result);
             success(result);
@@ -69,14 +74,16 @@ function insertTeacherInfo(params, success) {
     connection.end();//关闭连接
 }
 
-function queryAllAdmin(currentPage, success) {
-    var page = (currentPage - 1) * 8
-    var querySql = "select count(*) from admin;select * from admin limit " + page + ",8;";
+function getPublishInfo(params, success) {
+    var teacherCurrentPage = (params.teacherCurrentPage - 1) * 10;
+    var parentCurrentPage = (params.parentCurrentPage - 1) * 10;
+    var querySql = "select count(*) from teacher where phone =" + params.phone + " ;select * from teacher where phone =" + params.phone + "  limit " + teacherCurrentPage + ",10;\
+    select count(*) from parent where phone =" + params.phone + " ;select * from parent where phone =" + params.phone + "  limit " + parentCurrentPage + ",10;";
     var connection = dbutil.createConnection();
     connection.connect();//创建一个连接
     connection.query(querySql, function (error, result) {
         if (error == null) {
-            console.log(result);
+            // console.log(result);
             // console.log(result.length)
             success(result);
         } else {
@@ -86,8 +93,17 @@ function queryAllAdmin(currentPage, success) {
     connection.end();//关闭连接
 }
 
-function deleteAdmin(id, success) {
-    var deleteSql = "delete from admin where id = ?;";
+function deletePublishInfo(params, success) {
+    // console.log(params.parent_id == undefined)
+    var deleteSql = "";
+    var id;
+    if (params.parent_id == undefined) {
+        deleteSql = "delete from teacher where id = ?;";
+        id = params.id;
+    } else if (params.teacher_id == undefined) {
+        deleteSql = "delete from parent where id = ?;";
+        id = params.id;
+    }
     var connection = dbutil.createConnection();
     connection.connect();//创建一个连接
     connection.query(deleteSql, id, function (error, result) {
@@ -96,6 +112,56 @@ function deleteAdmin(id, success) {
         } else {
             // console.log(error);
             throw new Error("删除出错")
+        }
+    });
+    connection.end();//关闭连接
+}
+
+function getTeacherChangeInfo(id, success) {
+    var querySql = "select * from teacher where id = ?;";
+    var connection = dbutil.createConnection();
+    connection.connect();//创建一个连接
+    connection.query(querySql, id, function (error, result) {
+        if (error == null) {
+            success(result);
+        } else {
+            throw new Error("error");
+        }
+    });
+    connection.end();//关闭连接
+}
+
+function parentInfoChange(params,type,id, success) {
+    var sql = "";
+    if(type == 'add'){
+        sql = "insert into parent (parent_id,name,phone,email,pic_path,sex,education,teachage,teacherjob,teachlesson,teachtime,teachtimedis,price,teacharea,areadis,description,create_time,flag) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+    }else if(type == 'update'){
+        sql = "update parent set parent_id = ?,name = ?,phone = ?,email = ?,pic_path = ?,sex = ?,education = ?,teachage = ?,teacherjob = ?,teachlesson = ?,teachtime = ?,teachtimedis = ?,price = ?,teacharea = ?,areadis = ?,description = ?,create_time = ?,flag = ? where id = "+ id +";";
+    }
+    // console.log(params)
+    var connection = dbutil.createConnection();
+    connection.connect();//创建一个连接
+    connection.query(sql, params, function (error, result) {
+        if (error == null) {
+            // console.log(result);
+            success(result);
+        } else {
+            // success(error);
+            console.log(error)
+        }
+    });
+    connection.end();//关闭连接
+}
+
+function getParentChangeInfo(id, success) {
+    var querySql = "select * from parent where id = ?;";
+    var connection = dbutil.createConnection();
+    connection.connect();//创建一个连接
+    connection.query(querySql, id, function (error, result) {
+        if (error == null) {
+            success(result);
+        } else {
+            throw new Error("error");
         }
     });
     connection.end();//关闭连接
@@ -177,5 +243,10 @@ module.exports = {
     "insertUser": insertUser,
     "queryUserByPhone": queryUserByPhone,
     "userChange": userChange,
-    "insertTeacherInfo": insertTeacherInfo
+    "teacherInfoChange": teacherInfoChange,
+    "getPublishInfo": getPublishInfo,
+    "deletePublishInfo": deletePublishInfo,
+    "getTeacherChangeInfo": getTeacherChangeInfo,
+    "parentInfoChange":parentInfoChange,
+    "getParentChangeInfo":getParentChangeInfo
 }

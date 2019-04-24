@@ -29,6 +29,8 @@ const InfoChange = () => import('@/components/main/InfoChange')
 const BeATeacher = () => import('@/components/main/BeATeacher')
 const FoundTeacher = () => import('@/components/main/FoundTeacher')
 const Publish = () => import('@/components/main/Publish')
+const TeacherInfoChange = () => import('@/components/main/TeacherInfoChange')
+const ParentInfoChange = () => import('@/components/main/ParentInfoChange')
 
 Vue.use(Router)
 
@@ -115,6 +117,34 @@ const router = new Router({
             } else {
               next({
                 name: 'login'
+              })
+            }
+          }
+        },
+        {
+          path: 'teacherInfoChange',
+          name: 'teacherInfoChange',
+          component: TeacherInfoChange,
+          beforeEnter(to, from, next) {
+            if (sessionStorage.teacherInfoId) {
+              next();
+            } else {
+              next({
+                name: '/mainIndex'
+              })
+            }
+          }
+        },
+        {
+          path: 'parentInfoChange',
+          name: 'parentInfoChange',
+          component: ParentInfoChange,
+          beforeEnter(to, from, next) {
+            if (sessionStorage.parentInfoId) {
+              next();
+            } else {
+              next({
+                name: '/mainIndex'
               })
             }
           }

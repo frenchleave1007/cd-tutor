@@ -1,91 +1,123 @@
 <template>
   <div class="foundTeacher">
-    <el-form
-      :model="ruleForm"
-      status-icon
-      :rules="rules"
-      ref="ruleForm"
-      label-width="150px"
-      class="demo-ruleForm"
-    >
-      <el-form-item label="家长名称" prop="name">
-        <el-input disabled v-model="ruleForm.name"></el-input>
-      </el-form-item>
-      <el-form-item label="家长电话" prop="phone">
-        <el-input disabled v-model="ruleForm.phone"></el-input>
-      </el-form-item>
-      <el-form-item label="家长邮箱" prop="email">
-        <el-input disabled v-model="ruleForm.email"></el-input>
-      </el-form-item>
-      <el-form-item label="家长性别">
-        <el-radio v-model="ruleForm.sex" label="男">男</el-radio>
-        <el-radio v-model="ruleForm.sex" label="女">女</el-radio>
-      </el-form-item>
-      <el-form-item label="期望教师文化水平" prop="education">
-        <el-input v-model="ruleForm.education" placeholder="例如：大学本科"></el-input>
-      </el-form-item>
-      <el-form-item label="期望教师教龄" prop="teachage">
-        <el-input v-model="ruleForm.teachage" placeholder="例如：3年"></el-input>
-      </el-form-item>
-      <el-form-item label="期望教师职业" prop="teacherjob">
-        <el-select v-model="ruleForm.teacherjob" placeholder="请选择你的职业">
-          <el-option v-for="item in searchList[2].value" :key="item" :value="item"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="需求教学科目" prop="teachlesson">
-        <el-select v-model="ruleForm.teachlesson" multiple placeholder="请选择教学科目，可多选">
-          <el-option v-for="item in searchList[1].value" :key="item" :value="item"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="教学时间" prop="teachtime">
-        <el-select v-model="ruleForm.teachtime" multiple placeholder="请选择教学时间，可多选">
-          <el-option v-for="item in searchList[3].value" :key="item" :value="item"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="教学时间详细说明" prop="teachtimedis">
-        <el-input
-          type="textarea"
-          resize="none"
-          :autosize="{ minRows: 3, maxRows: 10}"
-          v-model="ruleForm.teachtimedis"
-          placeholder="请输入教学时间的详细说明，例如：每天下午 15:00-19:00"
-        ></el-input>
-      </el-form-item>
-      <el-form-item label="期望价格" prop="price">
-        <el-input v-model="ruleForm.price" style="width:100px;margin-right:10px;"></el-input>/小时
-      </el-form-item>
-      <el-form-item label="教学地点" prop="teacharea">
-        <el-select v-model="ruleForm.teacharea" multiple placeholder="请选择教学地点，可多选">
-          <el-option v-for="item in searchList[0].value" :key="item" :value="item"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="教学地点详细说明" prop="areadis">
-        <el-input
-          type="textarea"
-          resize="none"
-          :autosize="{ minRows: 3, maxRows: 10}"
-          v-model="ruleForm.areadis"
-          placeholder="请输入教学地点的详细说明，例如：郫都区成都工业学院附近"
-        ></el-input>
-      </el-form-item>
-      <el-form-item label="情况说明" prop="description">
-        <el-input
-          type="textarea"
-          resize="none"
-          :autosize="{ minRows: 3, maxRows: 10}"
-          v-model="ruleForm.description"
-          placeholder="请输入对自己的情况简单说明"
-        ></el-input>
-      </el-form-item>
+    <el-col :span="18">
+      <el-form
+        :model="ruleForm"
+        status-icon
+        :rules="rules"
+        ref="ruleForm"
+        label-width="150px"
+        class="demo-ruleForm"
+      >
+        <el-form-item label="家长名称" prop="name">
+          <el-input disabled v-model="ruleForm.name"></el-input>
+        </el-form-item>
+        <el-form-item label="家长电话" prop="phone">
+          <el-input disabled v-model="ruleForm.phone"></el-input>
+        </el-form-item>
+        <el-form-item label="家长邮箱" prop="email">
+          <el-input disabled v-model="ruleForm.email"></el-input>
+        </el-form-item>
+        <el-form-item label="家长性别">
+          <el-radio :disabled="isChange" v-model="ruleForm.sex" label="男">男</el-radio>
+          <el-radio :disabled="isChange" v-model="ruleForm.sex" label="女">女</el-radio>
+        </el-form-item>
+        <el-form-item label="期望教师文化水平" prop="education">
+          <el-input :disabled="isChange" v-model="ruleForm.education" placeholder="例如：大学本科"></el-input>
+        </el-form-item>
+        <el-form-item label="期望教师教龄" prop="teachage">
+          <el-input :disabled="isChange" v-model="ruleForm.teachage" placeholder="例如：3年"></el-input>
+        </el-form-item>
+        <el-form-item label="期望教师职业" prop="teacherjob">
+          <el-select :disabled="isChange" v-model="ruleForm.teacherjob" placeholder="请选择你的职业">
+            <el-option v-for="item in searchList[2].value" :key="item" :value="item"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="需求教学科目" prop="teachlesson">
+          <el-select
+            :disabled="isChange"
+            v-model="ruleForm.teachlesson"
+            multiple
+            placeholder="请选择教学科目，可多选"
+          >
+            <el-option v-for="item in searchList[1].value" :key="item" :value="item"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="教学时间" prop="teachtime">
+          <el-select
+            :disabled="isChange"
+            v-model="ruleForm.teachtime"
+            multiple
+            placeholder="请选择教学时间，可多选"
+          >
+            <el-option v-for="item in searchList[3].value" :key="item" :value="item"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="教学时间详细说明" prop="teachtimedis">
+          <el-input
+            :disabled="isChange"
+            type="textarea"
+            resize="none"
+            :autosize="{ minRows: 3, maxRows: 10}"
+            v-model="ruleForm.teachtimedis"
+            placeholder="请输入教学时间的详细说明，例如：每天下午 15:00-19:00"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="期望价格" prop="price">
+          <el-input
+            :disabled="isChange"
+            v-model="ruleForm.price"
+            style="width:100px;margin-right:10px;"
+          ></el-input>/小时
+        </el-form-item>
+        <el-form-item label="教学地点" prop="teacharea">
+          <el-select
+            :disabled="isChange"
+            v-model="ruleForm.teacharea"
+            multiple
+            placeholder="请选择教学地点，可多选"
+          >
+            <el-option v-for="item in searchList[0].value" :key="item" :value="item"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="教学地点详细说明" prop="areadis">
+          <el-input
+            :disabled="isChange"
+            type="textarea"
+            resize="none"
+            :autosize="{ minRows: 3, maxRows: 10}"
+            v-model="ruleForm.areadis"
+            placeholder="请输入教学地点的详细说明，例如：郫都区成都工业学院附近"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="情况说明" prop="description">
+          <el-input
+            :disabled="isChange"
+            type="textarea"
+            resize="none"
+            :autosize="{ minRows: 3, maxRows: 10}"
+            v-model="ruleForm.description"
+            placeholder="请输入对自己的情况简单说明"
+          ></el-input>
+        </el-form-item>
 
-      <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-        <el-button @click="resetForm('ruleForm')">重置</el-button>
-        <router-link to="/">
-          <el-button type="primary">放弃并返回首页</el-button>
-        </router-link>
-      </el-form-item>
-    </el-form>
+        <el-form-item>
+          <el-button
+            type="primary"
+            @click="isChange ? toChange() : submitForm('ruleForm')"
+          >{{ isChange ? "修改" : "提交"}}</el-button>
+          <el-button v-if="!isChange" @click="resetForm('ruleForm')">重置</el-button>
+          <router-link to="publish">
+            <el-button type="primary">返回</el-button>
+          </router-link>
+        </el-form-item>
+      </el-form>
+    </el-col>
+    <el-col class="shenhe" :span="6">
+      <p class="errMsg">管理员审核情况</p>
+      <p class="status">状态：{{ruleForm.flag}}</p>
+      <p class="errInfo">说明：{{ruleForm.errmsg ? ruleForm.errmsg : '请耐心等待管理员审核'}}</p>
+    </el-col>
   </div>
 </template>
 
@@ -151,6 +183,7 @@ export default {
       }
     };
     return {
+      isChange: true,
       searchList: [],
       ruleForm: {
         parent_id: "",
@@ -209,7 +242,8 @@ export default {
               description: self.ruleForm.description,
               createTime: self.getNowDate(),
               flag: "未通过",
-              type: "add"
+              type: "update",
+              id: sessionStorage.parentInfoId
             })
             .then(response => {
               // console.log(response.data);
@@ -249,13 +283,12 @@ export default {
         .catch(() => {
           this.$router.replace("/index");
         });
+    },
+    toChange() {
+      this.isChange = false;
     }
   },
   created() {
-    this.ruleForm.name = sessionStorage.userName;
-    this.ruleForm.phone = sessionStorage.userPhone;
-    this.ruleForm.email = sessionStorage.userEmail;
-    this.ruleForm.card = ("00000" + sessionStorage.userId).slice(-5);
     var self = this;
     var tempArr = JSON.parse(JSON.stringify(this.$store.state.searchList));
     tempArr.forEach(function(value, index) {
@@ -263,8 +296,19 @@ export default {
       // console.log(value);
       self.searchList.push(value);
     });
-    // console.log(this.$store.state.searchList[0].value.length)
-    // console.log(this.searchList[0].value.length)
+    this.axios
+      .post("/api/getParentChangeInfo", {
+        id: sessionStorage.parentInfoId
+      })
+      .then(response => {
+        // console.log(response.data);
+        self.ruleForm = response.data.result[0];
+        self.ruleForm.teachlesson = response.data.result[0].teachlesson.split(
+          ","
+        );
+        self.ruleForm.teachtime = response.data.result[0].teachtime.split(",");
+        self.ruleForm.teacharea = response.data.result[0].teacharea.split(",");
+      });
   },
   mounted() {
     this.resetForm("ruleForm");

@@ -77,6 +77,10 @@ export default {
       sessionStorage.removeItem("userName");
       sessionStorage.removeItem("userPhone");
       sessionStorage.removeItem("userPic");
+      sessionStorage.removeItem("userEmail");
+      sessionStorage.removeItem("userId");
+      sessionStorage.removeItem("parentInfoId");
+      sessionStorage.removeItem("teacherInfoId");
     }
   }
 };

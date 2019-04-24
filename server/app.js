@@ -53,32 +53,42 @@ app.use(session({ //使用session
 }));
 
 // app.get("/getAllStudent",loader.get("/getAllStudent")); //get请求
-app.get("/getAllAdmin",loader.get("/getAllAdmin")); //get请求
-app.get("/adminLogout",loader.get("/adminLogout")); //get请求
-app.get("/deleteAdmin",loader.get("/deleteAdmin")); //get请求
-app.post("/adminLogin",loader.get("/adminLogin")); //post请求
-app.post("/insertAdmin",loader.get("/insertAdmin")); //post请求
-app.post("/searchAdmin",loader.get("/searchAdmin")); //post请求
-app.post("/adminChange",uploadSingle.single("file"),loader.get("/adminChange")); //post请求
+app.get("/getAllAdmin",loader.get("/getAllAdmin")); //  后台管理页面获取所有管理员
+app.get("/adminLogout",loader.get("/adminLogout")); //  管理员退出
+app.get("/deleteAdmin",loader.get("/deleteAdmin")); //  删除
+app.post("/adminLogin",loader.get("/adminLogin")); //  登录
+app.post("/insertAdmin",loader.get("/insertAdmin")); //  插入
+app.post("/searchAdmin",loader.get("/searchAdmin")); //  搜索
+app.post("/adminChange",uploadSingle.single("file"),loader.get("/adminChange")); //  修改信息，包括图片上传
 
-app.post("/insertUser",loader.get("/insertUser")); //post请求
-app.post("/userLogin",loader.get("/userLogin")); //post请求
-app.post("/getUserInfo",loader.get("/getUserInfo")); //post请求
-app.post("/userChange",uploadSingle.single("file"),loader.get("/userChange")); //post请求
-app.post("/insertTeacherInfo",loader.get("/insertTeacherInfo")); //post请求
+app.post("/insertUser",loader.get("/insertUser")); //  插入用户（注册）
+app.post("/userLogin",loader.get("/userLogin")); //  用户登录
+app.post("/getUserInfo",loader.get("/getUserInfo")); //  修改信息之前，获取用户已有的信息
+app.post("/userChange",uploadSingle.single("file"),loader.get("/userChange")); // 提交用户修改的信息
+
+app.post("/getPublishInfo",loader.get("/getPublishInfo")); //  获得大概发布的教师信息，查看时候通过，在publish页面
+app.post("/deletePublishInfo",loader.get("/deletePublishInfo"));// 删除自己发布的信息
+
+app.post("/getTeacherChangeInfo",loader.get("/getTeacherChangeInfo"));//  在修改自己发布的信息之前，获取发布的详细信息
+app.post("/getParentChangeInfo",loader.get("/getParentChangeInfo"));//  在修改自己发布的信息之前，获取发布的详细信息
+
+app.post("/parentInfoChange",loader.get("/parentInfoChange")); //  插入用户发布的寻找家教的信息到parent表 新增和修改功能
+app.post("/teacherInfoChange",loader.get("/teacherInfoChange")); //  插入用户发布的当家教的信息到teacher表  新增和修改功能
+
+
 
 
 
 console.log('服务已启动')
 
-app.get("/bg/*",function(request,response,next){//拦截器  读cookie 重定向
-    console.log(sessionStorage.adminNum);
-    if(sessionStorage.adminNum){
-        next();
-    }else{
-        response.redirect("/bgLogin");
-    }
-});
+// app.get("/bg/*",function(request,response,next){//拦截器  读cookie 重定向
+//     console.log(sessionStorage.adminNum);
+//     if(sessionStorage.adminNum){
+//         next();
+//     }else{
+//         response.redirect("/bgLogin");
+//     }
+// });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

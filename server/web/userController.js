@@ -87,8 +87,9 @@ function userChange(request, response) {
     })
 }
 
-function insertTeacherInfo(request, response) {
+function teacherInfoChange(request, response) {
     var params = [ // 获取form表单提交的账号密码 post方法需要从request的body中获取
+        request.body.teacher_id,
         request.body.name,
         request.body.phone,
         request.body.email,
@@ -108,39 +109,77 @@ function insertTeacherInfo(request, response) {
         request.body.description,
         request.body.createTime,
         request.body.flag,
-    ]
-    // console.log(params)
-    userDao.insertTeacherInfo(params, function (result) {
+    ];
+    var type = request.body.type;
+    var id = request.body.id;
+    // console.log(type)
+    userDao.teacherInfoChange(params,type,id, function (result) {
         response.send({ status: 'ok', message: "插入成功" })
     })
 }
 
-function deleteAdmin(request, response) {
-    var params = url.parse(request.url, true).query;
-    var id = params.id
-    adminDao.deleteAdmin(id, function (result) {
+function getPublishInfo(request, response) {
+    var params = {
+        phone: request.body.phone,
+        teacherCurrentPage:request.body.teacherCurrentPage,
+        parentCurrentPage:request.body.parentCurrentPage,
+    }
+    userDao.getPublishInfo(params, function (result) {
+        response.send({ status: 'ok', result })
+    })
+}
+
+function deletePublishInfo(request, response) {
+    var params = {
+        id:request.body.id,
+        teacher_id:request.body.teacher_id,
+        parent_id:request.body.parent_id,
+    };
+    userDao.deletePublishInfo(params, function (result) {
         response.send({ status: 'ok' })
     })
 }
 
-function searchAdmin(request, response) {
-    var params = { // 获取搜索框中的 名字 编号 电话
-        adminName: request.body.adminName,
-        adminNum: request.body.adminNum,
-        adminPhone: request.body.adminPhone,
-        currentPage: request.body.currentPage
-    }
-    adminDao.searchAdmin(params, function (result) {
-        if (result[1].length == 0) {
-            response.send({ status: 'fail' })
-        } else {
-            for (var i = 0; i < result[1].length; i++) { // 移除密码和不需要的属性，不返回给前端
-                delete result[1][i].password;
-                delete result[1][i].pic_name;
-                delete result[1][i].pic_size;
-            }
-            response.send({ status: 'ok', result: result });
-        }
+function getTeacherChangeInfo(request, response) {
+    var id = request.body.id
+    userDao.getTeacherChangeInfo(id, function (result) {
+        response.send({ status: 'ok', result })
+    })
+}
+
+function parentInfoChange(request, response) {
+    var params = [ // 获取form表单提交的账号密码 post方法需要从request的body中获取
+        request.body.parent_id,
+        request.body.name,
+        request.body.phone,
+        request.body.email,
+        request.body.pic_path,
+        request.body.sex,
+        request.body.education,
+        request.body.teachage,
+        request.body.teacherjob,
+        request.body.teachlesson,
+        request.body.teachtime,
+        request.body.teachtimedis,
+        request.body.price,
+        request.body.teacharea,
+        request.body.areadis,
+        request.body.description,
+        request.body.createTime,
+        request.body.flag,
+    ];
+    var type = request.body.type;
+    var id = request.body.id;
+    // console.log(type)
+    userDao.parentInfoChange(params,type,id, function (result) {
+        response.send({ status: 'ok', message: "插入成功" })
+    })
+}
+
+function getParentChangeInfo(request, response) {
+    var id = request.body.id
+    userDao.getParentChangeInfo(id, function (result) {
+        response.send({ status: 'ok', result })
     })
 }
 
@@ -148,6 +187,11 @@ path.set("/insertUser", insertUser);
 path.set("/userLogin", userLogin);
 path.set("/getUserInfo", getUserInfo);
 path.set("/userChange", userChange);
-path.set("/insertTeacherInfo", insertTeacherInfo);
+path.set("/teacherInfoChange", teacherInfoChange);
+path.set("/getPublishInfo", getPublishInfo);
+path.set("/deletePublishInfo", deletePublishInfo);
+path.set("/getTeacherChangeInfo", getTeacherChangeInfo);
+path.set("/parentInfoChange", parentInfoChange);
+path.set("/getParentChangeInfo", getParentChangeInfo);
 
 module.exports.path = path;
