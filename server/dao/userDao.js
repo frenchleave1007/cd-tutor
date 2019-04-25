@@ -52,12 +52,12 @@ function userChange(params, success) {
     connection.end();//关闭连接
 }
 
-function teacherInfoChange(params,type,id, success) {
+function teacherInfoChange(params, type, id, success) {
     var sql = "";
-    if(type == 'add'){
+    if (type == 'add') {
         sql = "insert into teacher (teacher_id,name,phone,email,card,pic_path,sex,graduated,education,teachage,teacherjob,teachlesson,teachtime,teachtimedis,price,teacharea,areadis,description,create_time,flag) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-    }else if(type == 'update'){
-        sql = "update teacher set teacher_id = ?,name = ?,phone = ?,email = ?,card = ?,pic_path = ?,sex = ?,graduated = ?,education = ?,teachage = ?,teacherjob = ?,teachlesson = ?,teachtime = ?,teachtimedis = ?,price = ?,teacharea = ?,areadis = ?,description = ?,create_time = ?,flag = ? where id = "+ id +";";
+    } else if (type == 'update') {
+        sql = "update teacher set teacher_id = ?,name = ?,phone = ?,email = ?,card = ?,pic_path = ?,sex = ?,graduated = ?,education = ?,teachage = ?,teacherjob = ?,teachlesson = ?,teachtime = ?,teachtimedis = ?,price = ?,teacharea = ?,areadis = ?,description = ?,create_time = ?,flag = ? where id = " + id + ";";
     }
     // console.log(params)
     var connection = dbutil.createConnection();
@@ -131,12 +131,12 @@ function getTeacherChangeInfo(id, success) {
     connection.end();//关闭连接
 }
 
-function parentInfoChange(params,type,id, success) {
+function parentInfoChange(params, type, id, success) {
     var sql = "";
-    if(type == 'add'){
+    if (type == 'add') {
         sql = "insert into parent (parent_id,name,phone,email,pic_path,sex,education,teachage,teacherjob,teachlesson,teachtime,teachtimedis,price,teacharea,areadis,description,create_time,flag) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-    }else if(type == 'update'){
-        sql = "update parent set parent_id = ?,name = ?,phone = ?,email = ?,pic_path = ?,sex = ?,education = ?,teachage = ?,teacherjob = ?,teachlesson = ?,teachtime = ?,teachtimedis = ?,price = ?,teacharea = ?,areadis = ?,description = ?,create_time = ?,flag = ? where id = "+ id +";";
+    } else if (type == 'update') {
+        sql = "update parent set parent_id = ?,name = ?,phone = ?,email = ?,pic_path = ?,sex = ?,education = ?,teachage = ?,teacherjob = ?,teachlesson = ?,teachtime = ?,teachtimedis = ?,price = ?,teacharea = ?,areadis = ?,description = ?,create_time = ?,flag = ? where id = " + id + ";";
     }
     // console.log(params)
     var connection = dbutil.createConnection();
@@ -167,73 +167,179 @@ function getParentChangeInfo(id, success) {
     connection.end();//关闭连接
 }
 
-function searchAdmin(params, success) {
+function getAllUser(currentPage, success) {
+    var page = (currentPage - 1) * 8
+    var querySql = "select count(*) from user;select * from user limit " + page + ",8;";
+    var connection = dbutil.createConnection();
+    connection.connect();//创建一个连接
+    connection.query(querySql, function (error, result) {
+        if (error == null) {
+            // console.log(result);
+            // console.log(result.length)
+            success(result);
+        } else {
+            throw new Error("error");
+        }
+    });
+    connection.end();//关闭连接
+}
+
+function deleteUser(id, success) {
+    var deleteSql = "delete from user where id = ?;";
+    var connection = dbutil.createConnection();
+    connection.connect();//创建一个连接
+    connection.query(deleteSql, id, function (error, result) {
+        if (error == null) {
+            success(result);
+        } else {
+            // console.log(error);
+            throw new Error("删除出错")
+        }
+    });
+    connection.end();//关闭连接
+}
+
+function searchUser(params, success) {
     console.log(params)
     // var paramsArr = [params.adminName,params.adminNum,params.adminPhone];
     var searchSql = "";
     var page = (params.currentPage - 1) * 8
-    if (params.adminName != '' && params.adminNum != '' && params.adminPhone != '') {
-        searchSql = "select count(*) from admin where name like '%" + params.adminName + "%'  or admin_num like '%" + params.adminNum + "%' or phone like '%" + params.adminPhone + "%';\
-                    select * from admin where name like '%" + params.adminName + "%'  or admin_num like '%" + params.adminNum + "%' or phone like '%" + params.adminPhone + "%' limit " + page + ",8;";
-    } else if (params.adminName != '' && params.adminNum != '') {
-        searchSql = "select count(*) from admin where name like '%" + params.adminName + "%'  or admin_num like '%" + params.adminNum + "%';\
-                    select * from admin where name like '%" + params.adminName + "%'  or admin_num like '%" + params.adminNum + "%' limit " + page + ",8;";
-    } else if (params.adminName != '' && params.adminPhone != '') {
-        searchSql = "select count(*) from admin where name like '%" + params.adminName + "%' or phone like '%" + params.adminPhone + "%';\
-                    select * from admin where name like '%" + params.adminName + "%' or phone like '%" + params.adminPhone + "%' limit " + page + ",8;";
-    } else if (params.adminNum != '' && params.adminPhone != '') {
-        searchSql = "select count(*) from admin where admin_num like '%" + params.adminNum + "%' or phone like '%" + params.adminPhone + "%';\
-                    select * from admin where admin_num like '%" + params.adminNum + "%' or phone like '%" + params.adminPhone + "%' limit " + page + ",8;";
-    } else if (params.adminName != '') {
-        searchSql = "select count(*) from admin where name like '%" + params.adminName + "%';\
-                     select * from admin where name like '%" + params.adminName + "%' limit " + page + ",8;";
-    } else if (params.adminNum != '') {
-        searchSql = "select count(*) from admin where admin_num like '%" + params.adminNum + "%';\
-                    select * from admin where admin_num like '%" + params.adminNum + "%' limit " + page + ",8;";
-    } else if (params.adminPhone != '') {
-        searchSql = "select count(*) from admin where phone like '%" + params.adminPhone + "%';\
-                    select * from admin where phone like '%" + params.adminPhone + "%' limit " + page + ",8;";
+    if (params.userName != '' && params.userPhone != '') {
+        searchSql = "select count(*) from user where name like '%" + params.userName + "%' and phone like '%" + params.userPhone + "%';\
+                    select * from user where name like '%" + params.userName + "%' and phone like '%" + params.userPhone + "%' limit " + page + ",8;";
+    } else if (params.userName != '') {
+        searchSql = "select count(*) from user where name like '%" + params.userName + "%';\
+                    select * from user where name like '%" + params.userName + "%' limit " + page + ",8;";
+    } else if (params.userPhone != '') {
+        searchSql = "select count(*) from user where phone like '%" + params.userPhone + "%';\
+                    select * from user where phone like '%" + params.userPhone + "%' limit " + page + ",8;";
     } else {
-        searchSql = "select count(*) from admin;\
-                    select * from admin limit "+ page + ",8;";
+        searchSql = "select count(*) from user;\
+                    select * from user limit "+ page + ",8;";
     }
+    var connection = dbutil.createConnection();
+    connection.connect();//创建一个连接
+    connection.query(searchSql, function (error, result) {
+        if (error == null) {
+            // console.log(result)
+            success(result);
+        } else {
+            console.log(error);
+            // throw new Error("")
+        }
+    });
+    connection.end();//关闭连接
+}
 
-    // console.log(params.adminName == '' && params.adminNum == '' && params.adminPhone == '')
-    // if(params.adminName == '' && params.adminNum == '' && params.adminPhone == ''){
-    //     searchSql = "select * from admin;";
-    //     paramsArr = [];
-    // }else if(params.adminName == '' && params.adminNum == ''){
-    //     searchSql = "select * from admin where phone = ?;";
-    //     paramsArr = [params.adminPhone];
-    // }else if(params.adminName == '' && params.adminPhone == ''){
-    //     searchSql = "select * from admin where admin_num = ?;";
-    //     paramsArr = [params.adminNum];
-    // }else if(params.adminNum == '' && params.adminPhone == ''){
-    //     paramsArr = [params.adminName];
-    //     searchSql = "select * from admin where name like '%"+params.adminName+"%';";
-    // }else if(params.adminName == ''){
-    //     searchSql = "select * from admin where admin_num = ? and phone = ?;";
-    //     paramsArr = [params.adminNum,params.adminPhone];
-    // }else if(params.adminNum == ''){
-    //     searchSql = "select * from admin where name = ? and phone = ?;";
-    //     paramsArr = [params.adminName,params.adminPhone];
-    // }else if(params.adminPhone == ''){
-    //     searchSql = "select * from admin where name = ? and admin_num = ?;";
-    //     paramsArr = [params.adminName,params.adminNum];
-    // }else{
-    //     searchSql = "select * from admin where name = ? and admin_num = ? and phone = ?;";
-    //     paramsArr = [params.adminName,params.adminNum,params.adminPhone];
-    // }
+function getAllTeacherInfo(currentPage, success) {
+    var page = (currentPage - 1) * 8
+    var querySql = "select count(*) from teacher where flag <> '已删除';select * from teacher where flag <> '已删除' limit " + page + ",8;";
+    var connection = dbutil.createConnection();
+    connection.connect();//创建一个连接
+    connection.query(querySql, function (error, result) {
+        if (error == null) {
+            // console.log(result);
+            // console.log(result.length)
+            success(result);
+        } else {
+            // throw new Error("error");
+            console.log(error)
+        }
+    });
+    connection.end();//关闭连接
+}
+
+function searchTeacherInfo(params, success) {
+    // console.log(params)
+    // var paramsArr = [params.adminName,params.adminNum,params.adminPhone];
+    var searchSql = "";
+    var page = (params.currentPage - 1) * 8
+    if (params.teacherName != '' && params.create_time != '' && params.teacherPhone != '') {
+        searchSql = "select count(*) from teacher where flag <> '已删除' and name like '%" + params.teacherName + "%'  and create_time like '%" + params.create_time + "%' and phone like '%" + params.teacherPhone + "%';\
+                    select * from teacher where flag <> '已删除' and name like '%" + params.teacherName + "%'  and create_time like '%" + params.create_time + "%' and phone like '%" + params.teacherPhone + "%' limit " + page + ",8;";
+    } else if (params.teacherName != '' && params.create_time != '') {
+        searchSql = "select count(*) from teacher where flag <> '已删除' and name like '%" + params.teacherName + "%'  and create_time like '%" + params.create_time + "%';\
+                    select * from teacher where flag <> '已删除' and name like '%" + params.teacherName + "%'  and create_time like '%" + params.create_time + "%' limit " + page + ",8;";
+    } else if (params.teacherName != '' && params.teacherPhone != '') {
+        searchSql = "select count(*) from teacher where flag <> '已删除' and name like '%" + params.teacherName + "%' and phone like '%" + params.teacherPhone + "%';\
+                    select * from teacher where flag <> '已删除' and name like '%" + params.teacherName + "%' and phone like '%" + params.teacherPhone + "%' limit " + page + ",8;";
+    } else if (params.create_time != '' && params.teacherPhone != '') {
+        searchSql = "select count(*) from teacher where flag <> '已删除' and create_time like '%" + params.create_time + "%' and phone like '%" + params.teacherPhone + "%';\
+                    select * from teacher where flag <> '已删除' and create_time like '%" + params.create_time + "%' and phone like '%" + params.teacherPhone + "%' limit " + page + ",8;";
+    } else if (params.teacherName != '') {
+        searchSql = "select count(*) from teacher where flag <> '已删除' and name like '%" + params.teacherName + "%';\
+                     select * from teacher where flag <> '已删除' and name like '%" + params.teacherName + "%' limit " + page + ",8;";
+    } else if (params.create_time != '') {
+        searchSql = "select count(*) from teacher where flag <> '已删除' and create_time like '%" + params.create_time + "%';\
+                    select * from teacher where flag <> '已删除' and create_time like '%" + params.create_time + "%' limit " + page + ",8;";
+    } else if (params.teacherPhone != '') {
+        searchSql = "select count(*) from teacher where flag <> '已删除' and phone like '%" + params.teacherPhone + "%';\
+                    select * from teacher where flag <> '已删除' and phone like '%" + params.teacherPhone + "%' limit " + page + ",8;";
+    } else {
+        searchSql = "select count(*) from teacher where flag <> '已删除';\
+                    select * from teacher where flag <> '已删除' limit "+ page + ",8;";
+    }
     // console.log(searchSql)
     var connection = dbutil.createConnection();
     connection.connect();//创建一个连接
     connection.query(searchSql, function (error, result) {
         if (error == null) {
-            console.log(result)
+            // console.log(result)
             success(result);
         } else {
             console.log(error);
             // throw new Error("")
+        }
+    });
+    connection.end();//关闭连接
+}
+
+function adminDeleteTeacherInfo(id, success) {
+    var sql = "update teacher set flag = '已删除' where id = " + id + ";";
+    var connection = dbutil.createConnection();
+    connection.connect();//创建一个连接
+    connection.query(sql, function (error, result) {
+        if (error == null) {
+            console.log(result);
+            // console.log(result.length)
+            success(result);
+        } else {
+            // throw new Error("error");
+            console.log(error)
+        }
+    });
+    connection.end();//关闭连接
+}
+
+function setTeacherInfoStatus(params, success) {
+    var sql = "update teacher set flag = ?, errmsg = ? where id = ?;";
+    var connection = dbutil.createConnection();
+    connection.connect();//创建一个连接
+    connection.query(sql, params, function (error, result) {
+        if (error == null) {
+            // console.log(result);
+            // console.log(result.length)
+            success(result);
+        } else {
+            // throw new Error("error");
+            console.log(error)
+        }
+    });
+    connection.end();//关闭连接
+}
+
+function canDelete(id, success) {
+    var sql = "select * from teacher where teacher_id = " + id + ";select * from parent where parent_id = " + id + ";";
+    var connection = dbutil.createConnection();
+    connection.connect();//创建一个连接
+    connection.query(sql, function (error, result) {
+        if (error == null) {
+            console.log(result);
+            // console.log(result.length)
+            success(result);
+        } else {
+            // throw new Error("error");
+            console.log(error)
         }
     });
     connection.end();//关闭连接
@@ -247,6 +353,14 @@ module.exports = {
     "getPublishInfo": getPublishInfo,
     "deletePublishInfo": deletePublishInfo,
     "getTeacherChangeInfo": getTeacherChangeInfo,
-    "parentInfoChange":parentInfoChange,
-    "getParentChangeInfo":getParentChangeInfo
+    "parentInfoChange": parentInfoChange,
+    "getParentChangeInfo": getParentChangeInfo,
+    "getAllUser": getAllUser,
+    "deleteUser": deleteUser,
+    "searchUser": searchUser,
+    "getAllTeacherInfo": getAllTeacherInfo,
+    "searchTeacherInfo": searchTeacherInfo,
+    "adminDeleteTeacherInfo": adminDeleteTeacherInfo,
+    "setTeacherInfoStatus": setTeacherInfoStatus,
+    "canDelete": canDelete
 }

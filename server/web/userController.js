@@ -113,7 +113,7 @@ function teacherInfoChange(request, response) {
     var type = request.body.type;
     var id = request.body.id;
     // console.log(type)
-    userDao.teacherInfoChange(params,type,id, function (result) {
+    userDao.teacherInfoChange(params, type, id, function (result) {
         response.send({ status: 'ok', message: "插入成功" })
     })
 }
@@ -121,8 +121,8 @@ function teacherInfoChange(request, response) {
 function getPublishInfo(request, response) {
     var params = {
         phone: request.body.phone,
-        teacherCurrentPage:request.body.teacherCurrentPage,
-        parentCurrentPage:request.body.parentCurrentPage,
+        teacherCurrentPage: request.body.teacherCurrentPage,
+        parentCurrentPage: request.body.parentCurrentPage,
     }
     userDao.getPublishInfo(params, function (result) {
         response.send({ status: 'ok', result })
@@ -131,9 +131,9 @@ function getPublishInfo(request, response) {
 
 function deletePublishInfo(request, response) {
     var params = {
-        id:request.body.id,
-        teacher_id:request.body.teacher_id,
-        parent_id:request.body.parent_id,
+        id: request.body.id,
+        teacher_id: request.body.teacher_id,
+        parent_id: request.body.parent_id,
     };
     userDao.deletePublishInfo(params, function (result) {
         response.send({ status: 'ok' })
@@ -171,7 +171,7 @@ function parentInfoChange(request, response) {
     var type = request.body.type;
     var id = request.body.id;
     // console.log(type)
-    userDao.parentInfoChange(params,type,id, function (result) {
+    userDao.parentInfoChange(params, type, id, function (result) {
         response.send({ status: 'ok', message: "插入成功" })
     })
 }
@@ -180,6 +180,98 @@ function getParentChangeInfo(request, response) {
     var id = request.body.id
     userDao.getParentChangeInfo(id, function (result) {
         response.send({ status: 'ok', result })
+    })
+}
+
+function getAllUser(request, response) {
+    var params = url.parse(request.url, true).query;
+    var currentPage = params.currentPage
+    userDao.getAllUser(currentPage, function (result) {
+        for (var i = 0; i < result[1].length; i++) { // 移除密码和不需要的属性，不返回给前端
+            delete result[1][i].password;
+            delete result[1][i].pic_name;
+            delete result[1][i].pic_size;
+        }
+        response.send(result);
+    })
+}
+
+function deleteUser(request, response) {
+    var params = url.parse(request.url, true).query;
+    var id = params.id
+    userDao.deleteUser(id, function (result) {
+        response.send({ status: 'ok' })
+    })
+}
+
+function searchUser(request, response) {
+    var params = { // 获取搜索框中的 名字 编号 电话
+        userName: request.body.userName,
+        userPhone: request.body.userPhone,
+        currentPage: request.body.currentPage
+    }
+    userDao.searchUser(params, function (result) {
+        if (result[1].length == 0) {
+            response.send({ status: 'fail' })
+        } else {
+            for (var i = 0; i < result[1].length; i++) { // 移除密码和不需要的属性，不返回给前端
+                delete result[1][i].password;
+                delete result[1][i].pic_name;
+                delete result[1][i].pic_size;
+            }
+            response.send({ status: 'ok', result: result });
+        }
+    })
+}
+
+function getAllTeacherInfo(request, response) {
+    var params = url.parse(request.url, true).query;
+    var currentPage = params.currentPage
+    userDao.getAllTeacherInfo(currentPage, function (result) {
+        response.send(result);
+    })
+}
+
+function searchTeacherInfo(request, response) {
+    var params = {
+        teacherName: request.body.teacherName,
+        teacherPhone: request.body.teacherPhone,
+        create_time: request.body.create_time,
+        currentPage: request.body.currentPage
+    }
+    userDao.searchTeacherInfo(params, function (result) {
+        if (result[1].length == 0) {
+            response.send({ status: 'fail' })
+        } else {
+            response.send({ status: 'ok', result: result });
+        }
+    })
+}
+
+function adminDeleteTeacherInfo(request, response) {
+    var params = url.parse(request.url, true).query;
+    var id = params.id
+    userDao.adminDeleteTeacherInfo(id, function (result) {
+        response.send({ status: 'ok', result });
+    })
+}
+
+function setTeacherInfoStatus(request, response) {
+    var params = [
+        request.body.flag,
+        request.body.errmsg,
+        request.body.id
+    ]
+    userDao.setTeacherInfoStatus(params, function (result) {
+        response.send({ status: 'ok', result: result });
+    })
+}
+
+function canDelete(request, response) {
+    var params = url.parse(request.url, true).query;
+    var id = params.id
+    userDao.canDelete(id, function (result) {
+        response.send({ status: 'ok', result });
     })
 }
 
@@ -193,5 +285,15 @@ path.set("/deletePublishInfo", deletePublishInfo);
 path.set("/getTeacherChangeInfo", getTeacherChangeInfo);
 path.set("/parentInfoChange", parentInfoChange);
 path.set("/getParentChangeInfo", getParentChangeInfo);
+path.set("/getAllUser", getAllUser);
+path.set("/deleteUser", deleteUser);
+path.set("/searchUser", searchUser);
+path.set("/getAllTeacherInfo", getAllTeacherInfo);
+path.set("/searchTeacherInfo", searchTeacherInfo);
+path.set("/adminDeleteTeacherInfo", adminDeleteTeacherInfo);
+path.set("/setTeacherInfoStatus", setTeacherInfoStatus);
+path.set("/canDelete", canDelete);
+
+
 
 module.exports.path = path;

@@ -1,0 +1,31 @@
+.admin-info{
+    width: 95%;
+    margin: 20px auto 0px;
+    border: 1px solid #ccc;
+    .title{
+        font-size: 30px;
+        text-align: center;
+        margin-top: 20px;
+    }
+    .el-row{
+        .el-col{
+            padding-left: 200px;
+            p{
+                font-size: 18px;
+                padding: 15px 0px;
+                img{
+                    width: 100px;
+                    height: 100px;
+                }
+            }
+        }
+    }
+    .btn{
+        width: 300px;
+        margin: 20px auto;
+        text-align: center;
+        .el-button{
+            margin-left: 20px;
+        }
+    }
+}

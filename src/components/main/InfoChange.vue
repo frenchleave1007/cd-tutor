@@ -38,7 +38,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">立即修改</el-button>
-        <router-link to="mainIndex">
+        <router-link to="/index">
           <el-button>放弃修改</el-button>
         </router-link>
       </el-form-item>

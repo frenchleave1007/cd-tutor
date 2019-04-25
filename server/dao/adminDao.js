@@ -7,7 +7,7 @@ function queryAllAdmin(currentPage,success) {
     connection.connect();//创建一个连接
     connection.query(querySql, function (error, result) {
         if (error == null) {
-            console.log(result);
+            // console.log(result);
             // console.log(result.length)
             success(result);
         } else {
@@ -136,7 +136,7 @@ function searchAdmin(params, success) {
     connection.connect();//创建一个连接
     connection.query(searchSql, function (error, result) {
         if (error == null) {
-            console.log(result)
+            // console.log(result)
             success(result);
         } else {
             console.log(error);

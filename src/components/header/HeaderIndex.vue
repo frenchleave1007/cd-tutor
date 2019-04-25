@@ -81,6 +81,7 @@ export default {
       sessionStorage.removeItem("userId");
       sessionStorage.removeItem("parentInfoId");
       sessionStorage.removeItem("teacherInfoId");
+      location.reload();
     }
   }
 };

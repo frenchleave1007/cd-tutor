@@ -23,23 +23,23 @@
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button
-              v-if="!deleteFlagT"
+              v-if="scope.row.flag != '已删除'"
               size="mini"
               type="success"
               @click="checkTeacherInfo(scope.$index, scope.row)"
             >查看详情</el-button>
             <el-button
-              v-if="!deleteFlagT"
+              v-if="scope.row.flag != '已删除'"
               size="mini"
               type="danger"
               @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button>
             <el-button
-              v-if="deleteFlagT"
+              v-if="scope.row.flag == '已删除'"
               size="mini"
               type="danger"
               @click="handleDelete(scope.$index, scope.row)"
-            >删除此条记录</el-button>
+            >了解并删除此条信息</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -73,23 +73,23 @@
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button
-              v-if="!deleteFlagP"
+              v-if="scope.row.flag != '已删除'"
               size="mini"
               type="success"
               @click="checkParentInfo(scope.$index, scope.row)"
             >查看详情</el-button>
             <el-button
-              v-if="!deleteFlagP"
+              v-if="scope.row.flag != '已删除'"
               size="mini"
               type="danger"
               @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button>
             <el-button
-              v-if="deleteFlagP"
+              v-if="scope.row.flag == '已删除'"
               size="mini"
               type="danger"
               @click="handleDelete(scope.$index, scope.row)"
-            >删除此条记录</el-button>
+            >了解并删除此条信息</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -109,8 +109,6 @@ import InfoList from "@/components/main/InfoList";
 export default {
   data() {
     return {
-      deleteFlagT: false,
-      deleteFlagP: false,
       parentTotal: 0,
       teacherTotal: 0,
       teacherData: [],

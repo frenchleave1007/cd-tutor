@@ -54,11 +54,26 @@ app.use(session({ //使用session
 
 // app.get("/getAllStudent",loader.get("/getAllStudent")); //get请求
 app.get("/getAllAdmin",loader.get("/getAllAdmin")); //  后台管理页面获取所有管理员
+app.get("/getAllUser",loader.get("/getAllUser")); //  后台管理页面获取所有管理员
+
+app.get("/canDelete",loader.get("/canDelete")); //  
+
+app.get("/getAllTeacherInfo",loader.get("/getAllTeacherInfo")); //  后台管理页面获取所有教师发布的信息
+app.post("/searchTeacherInfo",loader.get("/searchTeacherInfo")); //  搜索
+
+
 app.get("/adminLogout",loader.get("/adminLogout")); //  管理员退出
 app.get("/deleteAdmin",loader.get("/deleteAdmin")); //  删除
+app.get("/deleteUser",loader.get("/deleteUser")); //  删除
+
+app.get("/adminDeleteTeacherInfo",loader.get("/adminDeleteTeacherInfo")); //  管理员删除教师发布的信息，实则是修改为已删除，等用户确认了之后才从数据库删除
+
 app.post("/adminLogin",loader.get("/adminLogin")); //  登录
 app.post("/insertAdmin",loader.get("/insertAdmin")); //  插入
+
 app.post("/searchAdmin",loader.get("/searchAdmin")); //  搜索
+app.post("/searchUser",loader.get("/searchUser")); //  搜索
+
 app.post("/adminChange",uploadSingle.single("file"),loader.get("/adminChange")); //  修改信息，包括图片上传
 
 app.post("/insertUser",loader.get("/insertUser")); //  插入用户（注册）
@@ -74,8 +89,7 @@ app.post("/getParentChangeInfo",loader.get("/getParentChangeInfo"));//  在修�
 
 app.post("/parentInfoChange",loader.get("/parentInfoChange")); //  插入用户发布的寻找家教的信息到parent表 新增和修改功能
 app.post("/teacherInfoChange",loader.get("/teacherInfoChange")); //  插入用户发布的当家教的信息到teacher表  新增和修改功能
-
-
+app.post("/setTeacherInfoStatus",loader.get("/setTeacherInfoStatus")); //  插入用户发布的当家教的信息到teacher表  新增和修改功能
 
 
 

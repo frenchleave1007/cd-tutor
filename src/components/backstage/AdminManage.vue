@@ -24,12 +24,12 @@
       </el-table-column>
       <el-table-column label="姓名" width="250">
         <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span>{{ scope.row.name }}</span>
         </template>
       </el-table-column>
       <el-table-column label="编号" width="250">
         <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.admin_num }}</span>
+          <span>{{ scope.row.admin_num }}</span>
         </template>
       </el-table-column>
       <el-table-column label="电话" width="250">

@@ -16,8 +16,8 @@
           <template slot="title">
             <i class="el-icon-edit"></i>发布信息管理
           </template>
-          <el-menu-item index="teacherInfo">教师信息发布</el-menu-item>
-          <el-menu-item index="parentInfo">家长信息发布</el-menu-item>
+          <el-menu-item index="teacherInfo">教师信息管理</el-menu-item>
+          <el-menu-item index="parentInfo">家长信息管理</el-menu-item>
         </el-submenu>
         <el-submenu index="order">
           <template slot="title">

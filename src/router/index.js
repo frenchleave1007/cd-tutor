@@ -31,6 +31,7 @@ const FoundTeacher = () => import('@/components/main/FoundTeacher')
 const Publish = () => import('@/components/main/Publish')
 const TeacherInfoChange = () => import('@/components/main/TeacherInfoChange')
 const ParentInfoChange = () => import('@/components/main/ParentInfoChange')
+const TeacherInfoCheck = () => import('@/components/backstage/TeacherInfoCheck')
 
 Vue.use(Router)
 
@@ -130,7 +131,7 @@ const router = new Router({
               next();
             } else {
               next({
-                name: '/mainIndex'
+                name: 'login'
               })
             }
           }
@@ -144,7 +145,7 @@ const router = new Router({
               next();
             } else {
               next({
-                name: '/mainIndex'
+                name: 'login'
               })
             }
           }
@@ -298,6 +299,12 @@ const router = new Router({
           name: 'teacherInfo',
           meta: ['发布信息管理', '教师信息发布'],
           component: TeacherInfo
+        },
+        {
+          path: 'teacherInfoCheck',
+          name: 'teacherInfoCheck',
+          meta: ['发布信息管理', '教师信息审核'],
+          component: TeacherInfoCheck
         },
         {
           path: 'parentInfo',
