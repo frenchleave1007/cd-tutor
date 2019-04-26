@@ -9,7 +9,6 @@ const state = {
     {
       title: "授课区域",
       value: [
-        "不限",
         "锦江区",
         "青羊区",
         "金牛区",
@@ -35,7 +34,6 @@ const state = {
     {
       title: "教授科目",
       value: [
-        "不限",
         "小学数学",
         "小学语文",
         "小学英语",
@@ -56,7 +54,6 @@ const state = {
     {
       title: "教师类型",
       value: [
-        "不限",
         "大学老师",
         "高中老师",
         "初中老师",
@@ -69,7 +66,6 @@ const state = {
     {
       title: "授课时间",
       value: [
-        "不限",
         "周一",
         "周二",
         "周三",
@@ -81,15 +77,17 @@ const state = {
     },
     {
       title: "教师性别",
-      value: ["不限", "男", "女"]
+      value: ["男", "女"]
     }
   ],
 }
 
 const mutations = {
-  // setAdminNum (state, val) {
-  //   state.adminNum = val;
-  // },
+  setSearchList (state, val) {
+    state.searchList[0].value = val[0];
+    state.searchList[1].value = val[1];
+    state.searchList[2].value = val[2];
+  },
   // setAdminName (state, val) {
   //   state.adminName = val;
   // },

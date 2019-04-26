@@ -39,7 +39,7 @@ function adminLogin(request, response) {
 
             // response.cookie("admin_num", result[0].admin_num)
 
-            response.send({ status: 'ok', adminNum: result[0].admin_num, adminName: result[0].name })
+            response.send({ status: 'ok', adminNum: result[0].admin_num, adminName: result[0].name,super: result[0].super })
         } else {
             response.send({ status: 'fail' })
         }
@@ -64,7 +64,8 @@ function insertAdmin(request, response) {
         password: utility.md5(request.body.password),
         createrName: request.body.createrName,
         createrNum: request.body.createrNum,
-        createTime: request.body.createTime
+        createTime: request.body.createTime,
+        isSuper:request.body.isSuper
     }
     adminDao.insertAdmin(params, function (result) {
         if (!result.sqlMessage) {

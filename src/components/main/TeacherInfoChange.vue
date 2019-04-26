@@ -314,12 +314,7 @@ export default {
         self.ruleForm.teachtime = response.data.result[0].teachtime.split(",");
         self.ruleForm.teacharea = response.data.result[0].teacharea.split(",");
       });
-    var tempArr = JSON.parse(JSON.stringify(this.$store.state.searchList));
-    tempArr.forEach(function(value, index) {
-      value.value.shift();
-      // console.log(value);
-      self.searchList.push(value);
-    });
+    this.searchList = JSON.parse(JSON.stringify(this.$store.state.searchList));
   },
   mounted() {
     this.resetForm("ruleForm");

@@ -25,6 +25,15 @@
       <el-form-item label="确认密码" prop="repassword">
         <el-input type="password" v-model="ruleForm.repassword"></el-input>
       </el-form-item>
+      <el-form-item label="是否为超级管理员" prop="repassword">
+        <el-switch
+          v-model="ruleForm.isSuper"
+          active-color="#13ce66"
+          inactive-color="#ff4949"
+          active-text="是"
+          inactive-text="否"
+        ></el-switch>
+      </el-form-item>
 
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">立即添加</el-button>
@@ -103,7 +112,8 @@ export default {
         adminNum: "",
         phone: "",
         password: "",
-        repassword: ""
+        repassword: "",
+        isSuper:false
       },
       rules: {
         name: [{ validator: checkName, trigger: "blur" }],
@@ -116,6 +126,7 @@ export default {
   },
   methods: {
     submitForm(formName) {
+      // console.log(this.ruleForm)
       this.adminNumUn = false;
       this.phoneUn = false;
       // console.log(sessionStorage.adminName)
@@ -130,9 +141,10 @@ export default {
               adminNum: self.ruleForm.adminNum,
               phone: self.ruleForm.phone,
               password: self.ruleForm.password,
-              createrName:sessionStorage.adminName,
-              createrNum:sessionStorage.adminNum,
-              createTime:self.getNowDate()
+              createrName: sessionStorage.adminName,
+              createrNum: sessionStorage.adminNum,
+              isSuper:self.ruleForm.isSuper,
+              createTime: self.getNowDate()
             })
             .then(response => {
               console.log(response.data);

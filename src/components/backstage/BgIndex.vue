@@ -32,6 +32,12 @@
           <el-menu-item index="adminManage">管理员总览</el-menu-item>
           <el-menu-item index="addAdmin">管理员添加</el-menu-item>
         </el-submenu>
+        <el-submenu index="other">
+          <template slot="title">
+            <i class="el-icon-more-outline"></i>其他
+          </template>
+          <el-menu-item index="otherManage">地点课程职业管理</el-menu-item>
+        </el-submenu>
         <el-submenu index="about">
           <template slot="title">
             <i class="el-icon-info"></i>关于

@@ -183,9 +183,9 @@ export default {
         return (
           time.getFullYear() +
           "-" +
-          (time.getMonth() + 1) +
+          ("0" + (time.getMonth() + 1)).slice(-2) +
           "-" +
-          time.getDate()
+          ("0" + time.getDate()).slice(-2)
         );
       }
     }

@@ -290,12 +290,7 @@ export default {
   },
   created() {
     var self = this;
-    var tempArr = JSON.parse(JSON.stringify(this.$store.state.searchList));
-    tempArr.forEach(function(value, index) {
-      value.value.shift();
-      // console.log(value);
-      self.searchList.push(value);
-    });
+    this.searchList = JSON.parse(JSON.stringify(this.$store.state.searchList));
     this.axios
       .post("/api/getParentChangeInfo", {
         id: sessionStorage.parentInfoId

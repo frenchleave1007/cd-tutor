@@ -32,6 +32,8 @@ const Publish = () => import('@/components/main/Publish')
 const TeacherInfoChange = () => import('@/components/main/TeacherInfoChange')
 const ParentInfoChange = () => import('@/components/main/ParentInfoChange')
 const TeacherInfoCheck = () => import('@/components/backstage/TeacherInfoCheck')
+const ParentInfoCheck = () => import('@/components/backstage/ParentInfoCheck')
+const OtherManage = () => import('@/components/backstage/OtherManage')
 
 Vue.use(Router)
 
@@ -313,10 +315,22 @@ const router = new Router({
           component: ParentInfo
         },
         {
+          path: 'parentInfoCheck',
+          name: 'parentInfoCheck',
+          meta: ['发布信息管理', '家长信息审核'],
+          component: ParentInfoCheck
+        },
+        {
           path: 'userInfo',
           name: 'userInfo',
           meta: ['用户管理', '所有用户'],
           component: UserInfo
+        },
+        {
+          path: 'otherManage',
+          name: 'otherManage',
+          meta: ['其他', '地点课程职业管理'],
+          component: OtherManage
         },
       ]
     }

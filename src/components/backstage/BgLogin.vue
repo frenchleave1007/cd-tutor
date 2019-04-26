@@ -116,6 +116,7 @@ export default {
               if (response.data.status == 'ok') {
                 sessionStorage.adminNum = response.data.adminNum;
                 sessionStorage.adminName = response.data.adminName;
+                sessionStorage.super = response.data.super;
                 // this.$store.commit("setAdminNum", response.data.adminNum);
                 this.$router.push("/bgIndex");
               } else {

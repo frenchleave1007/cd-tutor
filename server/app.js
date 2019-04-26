@@ -61,18 +61,28 @@ app.get("/canDelete",loader.get("/canDelete")); //
 app.get("/getAllTeacherInfo",loader.get("/getAllTeacherInfo")); //  后台管理页面获取所有教师发布的信息
 app.post("/searchTeacherInfo",loader.get("/searchTeacherInfo")); //  搜索
 
+app.get("/getAllParentInfo",loader.get("/getAllParentInfo")); //  后台管理页面获取所有家长发布的信息
+app.post("/searchParentInfo",loader.get("/searchParentInfo")); //  搜索
+
 
 app.get("/adminLogout",loader.get("/adminLogout")); //  管理员退出
 app.get("/deleteAdmin",loader.get("/deleteAdmin")); //  删除
 app.get("/deleteUser",loader.get("/deleteUser")); //  删除
 
 app.get("/adminDeleteTeacherInfo",loader.get("/adminDeleteTeacherInfo")); //  管理员删除教师发布的信息，实则是修改为已删除，等用户确认了之后才从数据库删除
+app.get("/adminDeleteParentInfo",loader.get("/adminDeleteParentInfo"));
 
 app.post("/adminLogin",loader.get("/adminLogin")); //  登录
 app.post("/insertAdmin",loader.get("/insertAdmin")); //  插入
 
 app.post("/searchAdmin",loader.get("/searchAdmin")); //  搜索
 app.post("/searchUser",loader.get("/searchUser")); //  搜索
+
+
+app.post("/insertSearchValue",loader.get("/insertSearchValue")); //  插入搜索的列表
+app.post("/deleteSearchValue",loader.get("/deleteSearchValue"));
+app.post("/updateSearchValue",loader.get("/updateSearchValue"));
+app.post("/getSearchValue",loader.get("/getSearchValue"));
 
 app.post("/adminChange",uploadSingle.single("file"),loader.get("/adminChange")); //  修改信息，包括图片上传
 
@@ -89,8 +99,11 @@ app.post("/getParentChangeInfo",loader.get("/getParentChangeInfo"));//  在修�
 
 app.post("/parentInfoChange",loader.get("/parentInfoChange")); //  插入用户发布的寻找家教的信息到parent表 新增和修改功能
 app.post("/teacherInfoChange",loader.get("/teacherInfoChange")); //  插入用户发布的当家教的信息到teacher表  新增和修改功能
-app.post("/setTeacherInfoStatus",loader.get("/setTeacherInfoStatus")); //  插入用户发布的当家教的信息到teacher表  新增和修改功能
 
+app.post("/setTeacherInfoStatus",loader.get("/setTeacherInfoStatus")); //  修改审核状态
+app.post("/setParentInfoStatus",loader.get("/setParentInfoStatus")); //  修改审核状态
+
+app.get("/getSearchList",loader.get("/getSearchList"));
 
 
 console.log('服务已启动')

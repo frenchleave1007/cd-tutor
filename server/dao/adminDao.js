@@ -36,8 +36,9 @@ function queryAdminByPhone(params, success) {
 
 
 function insertAdmin(params, success) {
-    var insertSql = "insert into admin (name,admin_num,phone,password,creater_name,creater_num,create_time) values (?,?,?,?,?,?,?);";
-    var paramsArr = [params.name, params.adminNum, params.phone, params.password, params.createrName, params.createrNum, params.createTime];
+    // console.log(params.isSuper + '------------')
+    var insertSql = "insert into admin (name,admin_num,phone,password,creater_name,creater_num,create_time,super) values (?,?,?,?,?,?,?,?);";
+    var paramsArr = [params.name, params.adminNum, params.phone, params.password, params.createrName, params.createrNum, params.createTime,params.isSuper];
     // console.log(params)
     var connection = dbutil.createConnection();
     connection.connect();//创建一个连接
@@ -46,13 +47,6 @@ function insertAdmin(params, success) {
             // console.log(result);
             success(result);
         } else {
-            // throw new Error("error");
-            // console.log(error.sqlMessage.indexOf('phone_UNIQUE'))
-            // if(error.sqlMessage.indexOf('phone_UNIQUE') > 0){
-            //     console.log("电话号码已存在")
-            // }else if(error.sqlMessage.indexOf('admin_num_UNIQUE') > 0){
-            //     console.log("管理员编号已存在")
-            // }
             success(error);
         }
     });

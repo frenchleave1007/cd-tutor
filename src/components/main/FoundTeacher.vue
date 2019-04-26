@@ -256,15 +256,7 @@ export default {
     this.ruleForm.phone = sessionStorage.userPhone;
     this.ruleForm.email = sessionStorage.userEmail;
     this.ruleForm.card = ("00000" + sessionStorage.userId).slice(-5);
-    var self = this;
-    var tempArr = JSON.parse(JSON.stringify(this.$store.state.searchList));
-    tempArr.forEach(function(value, index) {
-      value.value.shift();
-      // console.log(value);
-      self.searchList.push(value);
-    });
-    // console.log(this.$store.state.searchList[0].value.length)
-    // console.log(this.searchList[0].value.length)
+    this.searchList = JSON.parse(JSON.stringify(this.$store.state.searchList));
   },
   mounted() {
     this.resetForm("ruleForm");

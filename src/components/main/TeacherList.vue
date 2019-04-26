@@ -105,7 +105,11 @@ export default {
     };
   },
   created(){
-    this.searchList = this.$store.state.searchList;
+    var tempArr = JSON.parse(JSON.stringify(this.$store.state.searchList));
+    for(var i=0;i<tempArr.length;i++){
+      tempArr[i].value.unshift('不限');
+      this.searchList.push(tempArr[i])
+    }
   }
 };
 </script>

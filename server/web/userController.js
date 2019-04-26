@@ -275,6 +275,103 @@ function canDelete(request, response) {
     })
 }
 
+function getAllParentInfo(request, response) {
+    var params = url.parse(request.url, true).query;
+    var currentPage = params.currentPage
+    userDao.getAllParentInfo(currentPage, function (result) {
+        response.send(result);
+    })
+}
+
+function searchParentInfo(request, response) {
+    var params = {
+        parentName: request.body.parentName,
+        parentPhone: request.body.parentPhone,
+        create_time: request.body.create_time,
+        currentPage: request.body.currentPage
+    }
+    userDao.searchParentInfo(params, function (result) {
+        if (result[1].length == 0) {
+            response.send({ status: 'fail' })
+        } else {
+            response.send({ status: 'ok', result: result });
+        }
+    })
+}
+
+function adminDeleteParentInfo(request, response) {
+    var params = url.parse(request.url, true).query;
+    var id = params.id
+    userDao.adminDeleteParentInfo(id, function (result) {
+        response.send({ status: 'ok', result });
+    })
+}
+
+function setParentInfoStatus(request, response) {
+    var params = [
+        request.body.flag,
+        request.body.errmsg,
+        request.body.id
+    ]
+    userDao.setParentInfoStatus(params, function (result) {
+        response.send({ status: 'ok', result: result });
+    })
+}
+
+function getSearchList(request, response) {
+    userDao.getSearchList(function (result) {
+        response.send({ status: 'ok', result: result });
+    })
+}
+
+function insertSearchValue(request, response) {
+    var params = {
+        area:request.body.area,
+        lesson:request.body.lesson,
+        teacherjob:request.body.teacherjob
+    }
+    userDao.insertSearchValue(params, function (result) {
+        // console.log(result)
+        response.send({ status: 'ok'});
+    })
+}
+
+function deleteSearchValue(request, response) {
+    var params = {
+        flag:request.body.flag,
+        id:request.body.id
+    }
+    userDao.deleteSearchValue(params, function (result) {
+        // console.log(result)
+        response.send({ status: 'ok'});
+    })
+}
+
+function updateSearchValue(request, response) {
+    var params = {
+        flag:request.body.flag,
+        id:request.body.id,
+        value:request.body.value
+    }
+    userDao.updateSearchValue(params, function (result) {
+        // console.log(result)
+        response.send({ status: 'ok'});
+    })
+}
+
+function getSearchValue(request, response) {
+    var params = {
+        areaPage:request.body.areaPage,
+        lessonPage:request.body.lessonPage,
+        teacherjobPage:request.body.teacherjobPage
+    }
+    userDao.getSearchValue(params, function (result) {
+        // console.log(result)
+        response.send({ status: 'ok',result});
+    })
+}
+
+
 path.set("/insertUser", insertUser);
 path.set("/userLogin", userLogin);
 path.set("/getUserInfo", getUserInfo);
@@ -293,7 +390,15 @@ path.set("/searchTeacherInfo", searchTeacherInfo);
 path.set("/adminDeleteTeacherInfo", adminDeleteTeacherInfo);
 path.set("/setTeacherInfoStatus", setTeacherInfoStatus);
 path.set("/canDelete", canDelete);
-
+path.set("/getAllParentInfo", getAllParentInfo);
+path.set("/searchParentInfo", searchParentInfo);
+path.set("/adminDeleteParentInfo", adminDeleteParentInfo);
+path.set("/setParentInfoStatus", setParentInfoStatus);
+path.set("/getSearchList", getSearchList);
+path.set("/insertSearchValue", insertSearchValue);
+path.set("/deleteSearchValue", deleteSearchValue);
+path.set("/updateSearchValue", updateSearchValue);
+path.set("/getSearchValue", getSearchValue);
 
 
 module.exports.path = path;

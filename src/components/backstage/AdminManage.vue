@@ -19,7 +19,10 @@
     <el-table :data="adminList" style="width: 100%">
       <el-table-column label="头像" width="250">
         <template slot-scope="scope">
-          <img class="admin-pic" :src="scope.row.pic_path == null ? '../../../static/images/default.jpg' : '/' + scope.row.pic_path">
+          <img
+            class="admin-pic"
+            :src="scope.row.pic_path == null ? '../../../static/images/default.jpg' : '/' + scope.row.pic_path"
+          >
         </template>
       </el-table-column>
       <el-table-column label="姓名" width="250">
@@ -38,12 +41,30 @@
           <span style="margin-left: 10px">{{ scope.row.phone }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="操作" width="350">
         <template slot-scope="scope">
-          <el-button size="mini" @click="adminChange(scope.$index, scope.row)">修改</el-button>
           <el-button size="mini" @click="adminInfo(scope.$index, scope.row)">查看详情</el-button>
+          <el-button
+            size="mini"
+            v-if="scope.row.admin_num == adminNumFlag || superFlag == 1"
+            @click="adminChange(scope.$index, scope.row)"
+          >修改</el-button>
           <!-- <router-link to="/adminInfo"><el-button size="mini" >查看详情</el-button></router-link> -->
-          <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          <el-button
+            size="mini"
+            type="danger"
+            v-if="superFlag == 1"
+            @click="handleDelete(scope.$index, scope.row)"
+          >删除</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column label="超级管理员">
+        <template slot-scope="scope">
+          <i
+            class="el-icon-star-on"
+            v-if="scope.row.super == 1"
+            style="margin-left: 20px;color:#67c23a;font-size:30px;"
+          ></i>
         </template>
       </el-table-column>
     </el-table>
@@ -72,6 +93,8 @@
 export default {
   data() {
     return {
+      adminNumFlag: sessionStorage.adminNum,
+      superFlag: sessionStorage.super,
       adminList: [],
       flag: true,
       allAdminTotal: 0,

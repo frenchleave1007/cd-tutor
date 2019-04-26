@@ -3,10 +3,10 @@
     <div class="search">
       <el-form :inline="true" :model="searchList" class="demo-form-inline">
         <el-form-item label="姓名">
-          <el-input v-model="searchList.teacherName" placeholder="请输入教师姓名"></el-input>
+          <el-input v-model="searchList.parentName" placeholder="请输入家长姓名"></el-input>
         </el-form-item>
         <el-form-item label="电话">
-          <el-input v-model="searchList.teacherPhone" placeholder="请输入教师电话"></el-input>
+          <el-input v-model="searchList.parentPhone" placeholder="请输入家长电话"></el-input>
         </el-form-item>
         <el-form-item label="日期">
           <el-date-picker v-model="searchList.create_time" type="date" placeholder="选择日期"></el-date-picker>
@@ -16,7 +16,7 @@
         </el-form-item>
       </el-form>
     </div>
-    <el-table :data="teacherInfo" style="width: 100%">
+    <el-table :data="parentInfo" style="width: 100%">
       <el-table-column label="发布时间" width="250">
         <template slot-scope="scope">
           <span>{{ scope.row.create_time }}</span>
@@ -39,7 +39,7 @@
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" @click="statusChange(scope.$index, scope.row)">查看审核</el-button>
+          <el-button size="mini" type="primary" @click="statusChange(scope.$index, scope.row)">查看并审核</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -69,15 +69,15 @@
 export default {
   data() {
     return {
-      teacherInfo: [],
+      parentInfo: [],
       flag: true,
       allInfoTotal: 0,
       searchInfoTotal: 0,
       allInfoCurrentPage: 1,
       searchInfoCurrentPage: 1,
       searchList: {
-        teacherName: "",
-        teacherPhone: "",
+        parentName: "",
+        parentPhone: "",
         create_time: ""
       }
     };
@@ -85,7 +85,7 @@ export default {
   methods: {
     statusChange(index, row) {
       this.$router.push({
-        name: "statusChange",
+        name: "parentInfoCheck",
         query: row
       });
     },
@@ -97,7 +97,7 @@ export default {
       })
         .then(() => {
           this.axios
-            .get("/api/adminDeleteTeacherInfo?id=" + row.id)
+            .get("/api/adminDeleteParentInfo?id=" + row.id)
             .then(response => {
               if (response.data.status == "ok") {
                 this.$message({
@@ -114,9 +114,9 @@ export default {
       // console.log(this.searchList.create_time == '')
       var self = this;
       this.axios
-        .post("/api/searchTeacherInfo", {
-          teacherName: self.searchList.teacherName,
-          teacherPhone: self.searchList.teacherPhone,
+        .post("/api/searchParentInfo", {
+          parentName: self.searchList.parentName,
+          parentPhone: self.searchList.parentPhone,
           create_time: self.timeTypeChange(),
           currentPage: self.searchInfoCurrentPage
         })
@@ -127,7 +127,7 @@ export default {
             self.searchFail();
           } else {
             self.flag = false;
-            self.teacherInfo = res.result[1];
+            self.parentInfo = res.result[1];
             self.searchInfoTotal = res.result[0][0]["count(*)"];
           }
         });
@@ -140,16 +140,16 @@ export default {
       this.allInfoCurrentPage = currentPage;
       var self = this;
       this.axios
-        .get("/api/getAllTeacherInfo?currentPage=" + self.allInfoCurrentPage)
+        .get("/api/getAllParentInfo?currentPage=" + self.allInfoCurrentPage)
         .then(response => {
           var res = response.data;
           // console.log(res[0][0]["count(*)"]);
           if (res) {
             // console.log(res[1])
-            this.teacherInfo = res[1];
-            this.allAdminTotal = res[0][0]["count(*)"]; // 数据总条数 决定分多少页
+            this.parentInfo = res[1];
+            this.allInfoTotal = res[0][0]["count(*)"]; // 数据总条数 决定分多少页
           } else {
-            this.teacherInfo = [];
+            this.parentInfo = [];
           }
         });
     },
@@ -157,9 +157,9 @@ export default {
       this.searchInfoCurrentPage = currentPage;
       var self = this;
       this.axios
-        .post("/api/searchTeacherInfo", {
-          teacherName: self.searchList.teacherName,
-          teacherPhone: self.searchList.teacherPhone,
+        .post("/api/searchParentInfo", {
+          parentName: self.searchList.parentName,
+          parentPhone: self.searchList.parentPhone,
           create_time: self.timeTypeChange(),
           currentPage: self.searchInfoCurrentPage
         })
@@ -170,8 +170,8 @@ export default {
             self.searchFail();
           } else {
             self.flag = false;
-            self.teacherInfo = res.result[1];
-            self.searchAdminTotal = res.result[0][0]["count(*)"];
+            self.parentInfo = res.result[1];
+            self.searchInfoTotal = res.result[0][0]["count(*)"];
           }
         });
     },
@@ -183,9 +183,9 @@ export default {
         return (
           time.getFullYear() +
           "-" +
-          (time.getMonth() + 1) +
+          ("0" + (time.getMonth() + 1)).slice(-2) +
           "-" +
-          time.getDate()
+          ("0" + time.getDate()).slice(-2)
         );
       }
     }
@@ -193,15 +193,15 @@ export default {
   mounted() {
     var self = this;
     this.axios
-      .get("/api/getAllTeacherInfo?currentPage=" + self.allInfoCurrentPage)
+      .get("/api/getAllParentInfo?currentPage=" + self.allInfoCurrentPage)
       .then(response => {
         var res = response.data;
         if (res) {
           // console.log(res[1])
-          this.teacherInfo = res[1];
+          this.parentInfo = res[1];
           this.allInfoTotal = res[0][0]["count(*)"]; // 数据总条数 决定分多少页
         } else {
-          this.teacherInfo = [];
+          this.parentInfo = [];
         }
       });
   }

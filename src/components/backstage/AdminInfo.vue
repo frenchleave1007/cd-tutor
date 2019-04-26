@@ -10,13 +10,14 @@
       <dd>创建者编号：{{params.creater_num == null ? 'null' : params.creater_num}}</dd>
       <dd>创建时间：{{params.create_time == null ? 'null' : params.create_time}}</dd>
       <dd>上一次修改时间：{{params.change_time == null ? 'null' : params.change_time}}</dd>
+      <dd>超级管理员：{{params.super == true ? '是' : '不是'}}</dd>
       <dd>
         头像：
         <img :src="params.pic_path == null ? '../../../static/images/default.jpg' : '/' + params.pic_path">
       </dd>
     </dl>
     <div class="btn">
-      <el-button type="success" @click="toChangePage">修改信息</el-button>
+      <el-button type="success" @click="toChangePage" v-if="params.admin_num == adminNumFlag || superFlag == 1">修改信息</el-button>
       <router-link to="adminManage">
         <el-button type="success">返回</el-button>
       </router-link>
@@ -28,6 +29,8 @@
 export default {
   data() {
     return {
+      adminNumFlag:sessionStorage.adminNum,
+      superFlag:sessionStorage.super,
       params: {}
     };
   },
