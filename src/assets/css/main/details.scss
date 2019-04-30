@@ -15,10 +15,10 @@
                     font-size: 22px;
                     line-height: 35px;
                 }
-                .name,.card{
+                .name,.card,.creat_time{
                     padding-left: 50px;
                 }
-                .dis{
+                .creat_time{
                     font-size: 16px;
                     margin-top: 30px;
 
@@ -79,10 +79,12 @@
                     margin: 20px 0;
                     display: flex;
                     .details-list-title{
-                        flex: 0 0 80px;
+                        flex: 0 0 200px;
                         font-size: 16px;
                         color: #4c4c4c;
                         line-height: 30px;
+                        text-align: right;
+                        margin-right: 20px;
                         // border: 1px solid red;
                     }
                     .details-list-content{
@@ -95,36 +97,16 @@
                     }
                 }
             }
-            // .el-col:last-of-type{
-            //     // border: 1px solid green;
-            //     .order{
-            //         border: 1px solid #67C23A;
-            //         width: 350px;
-            //         // height: 500px;
-            //         margin: 20px auto;
-            //         .order-row{
-            //             padding-left: 40px;
-            //             padding-top: 20px;
-            //         }
-            //         span{
-            //             font-size: 16px;
-            //             color: #4c4c4c;
-            //         }
-            //         .el-input{
-            //             width: 200px;
-            //         }
-            //         .el-button{
-            //             width: 150px;
-            //             margin-top: 35px;
-            //             margin-left: 40px;
-            //             margin-bottom: 20px;
-            //         }
-            //         .order-title{
-            //             font-size: 22px;
-            //             color: #000;
-            //         }
-            //     }
-            // }
+            .orderBtn{
+                text-align: center;
+                .el-button{
+                    position: absolute;
+                    bottom: 100px;
+                    width: 200px;
+                    margin-left: -90px;
+                    height: 60px;
+                }
+            }
         }
     }
 }

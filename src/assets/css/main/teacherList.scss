@@ -22,14 +22,15 @@
                 display: inline-block;
             }
             dt{
-                width: 80px;
+                width: 100px;
             }
             dd{
                 margin-right: 9px;
                 .on{
                     color: #67C23A;
                 }
-               a{
+               span{
+                   cursor: pointer;
                    color: #555;
                    &:hover{
                     color: #67C23A;
@@ -55,6 +56,7 @@
         width: 500px;
         margin: 0 auto;
         margin-top: 20px;
+        text-align: center;
         .page-num{
             .el-pager{
                 .number.active{

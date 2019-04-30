@@ -7,31 +7,31 @@
       <el-col :span="10">
         <div class="gold-teacher">
           <img src="../../../static/images/goldcup.svg" alt>
-          <span>金牌讲师</span>
+          <span>操作流程</span>
           <img src="../../../static/images/goldcup.svg" alt>
         </div>
         <div class="teacher">
-            <img src="http://www.jiajiao114.com/images/w_default_avatar.jpg" alt="">
-            <p class="teacher-name">老师名字</p>
-            <p class="edu">学历 | 教龄</p>
-            <p class="dis">描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</p>
+          <i class="el-icon-search"></i>
+          <p class="teacher-name">根据自己的需求查看并筛选教师或者家长</p>
+        </div>
+        <div class="jiantou">
+          <i class="el-icon-caret-right"></i>
         </div>
         <div class="teacher">
-            <img src="http://www.jiajiao114.com/images/w_default_avatar.jpg" alt="">
-            <p class="teacher-name">老师名字</p>
-            <p class="edu">学历 | 教龄</p>
-            <p class="dis">描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</p>
+          <i class="el-icon-phone-outline"></i>
+          <p class="teacher-name">预约教师或家长，与之联系，自行商量后续问题</p>
+        </div>
+        <div class="jiantou">
+          <i class="el-icon-caret-right"></i>
         </div>
         <div class="teacher">
-            <img src="http://www.jiajiao114.com/images/w_default_avatar.jpg" alt="">
-            <p class="teacher-name">老师名字</p>
-            <p class="edu">学历 | 教龄</p>
-            <p class="dis">描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</p>
+          <i class="el-icon-edit-outline"></i>
+          <p class="teacher-name">达成教学合作之后，等待教师上门教学</p>
         </div>
       </el-col>
     </el-row>
     <el-row>
-      <total-info />
+      <total-info/>
     </el-row>
   </div>
 </template>

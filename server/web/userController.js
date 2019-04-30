@@ -98,10 +98,12 @@ function teacherInfoChange(request, response) {
         request.body.sex,
         request.body.graduated,
         request.body.education,
+        request.body.honor,
         request.body.teachage,
         request.body.teacherjob,
         request.body.teachlesson,
-        request.body.teachtime,
+        request.body.teachtime1,
+        request.body.teachtime2,
         request.body.teachtimedis,
         request.body.price,
         request.body.teacharea,
@@ -159,7 +161,8 @@ function parentInfoChange(request, response) {
         request.body.teachage,
         request.body.teacherjob,
         request.body.teachlesson,
-        request.body.teachtime,
+        request.body.teachtime1,
+        request.body.teachtime2,
         request.body.teachtimedis,
         request.body.price,
         request.body.teacharea,
@@ -371,6 +374,49 @@ function getSearchValue(request, response) {
     })
 }
 
+function getDisplayInfo(request, response) {
+    userDao.getDisplayInfo(function (result) {
+        // console.log(result)
+        response.send({ status: 'ok',result});
+    })
+}
+
+function getDetailTeacherInfo(request, response) {
+    var params = url.parse(request.url, true).query;
+    var id = params.id;
+    var type = params.type;
+    userDao.getDetailTeacherInfo(id,type, function (result) {
+        response.send({ status: 'ok', result });
+    })
+}
+
+function displaySearchInfo(request, response) {
+    var params = {
+        type:request.body.type,
+        key:request.body.key,
+        table:request.body.table,
+        currentPage:request.body.currentPage,
+    };
+    userDao.displaySearchInfo(params, function (result) {
+        response.send({ status: 'ok', result });
+    })
+}
+
+function getSearchInfoList(request, response) {
+    var params = {
+        teacharea:request.body.searchArr[0],
+        teachlesson:request.body.searchArr[1],
+        teachtime:request.body.searchArr[2],
+        teachtimesolt:request.body.searchArr[3],
+        price:request.body.searchArr[4],
+        currentPage:request.body.currentPage,
+        table:request.body.table,
+    };
+    userDao.getSearchInfoList(params, function (result) {
+        response.send({ status: 'ok', result });
+    })
+}
+
 
 path.set("/insertUser", insertUser);
 path.set("/userLogin", userLogin);
@@ -399,6 +445,10 @@ path.set("/insertSearchValue", insertSearchValue);
 path.set("/deleteSearchValue", deleteSearchValue);
 path.set("/updateSearchValue", updateSearchValue);
 path.set("/getSearchValue", getSearchValue);
+path.set("/getDisplayInfo", getDisplayInfo);
+path.set("/getDetailTeacherInfo", getDetailTeacherInfo);
+path.set("/displaySearchInfo", displaySearchInfo);
+path.set("/getSearchInfoList", getSearchInfoList);
 
 
 module.exports.path = path;

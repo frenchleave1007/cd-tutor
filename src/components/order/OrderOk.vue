@@ -1,7 +1,7 @@
 <template>
 <div class="pay-ok">
     <img src="../../../static/images/paysuccess.svg" alt="">
-    <p>恭喜你，付款成功！</p>
+    <p>恭喜你，预约成功！</p>
 </div>
 </template>
 

@@ -23,7 +23,6 @@ var loader = require("./loader");
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var studentRouter = require('./routes/student');
 
 var app = new express();
 
@@ -104,6 +103,15 @@ app.post("/setTeacherInfoStatus",loader.get("/setTeacherInfoStatus")); //  修�
 app.post("/setParentInfoStatus",loader.get("/setParentInfoStatus")); //  修改审核状态
 
 app.get("/getSearchList",loader.get("/getSearchList"));
+
+//前端主页面展示发布的信息
+app.get("/getDisplayInfo",loader.get("/getDisplayInfo"));
+app.get("/getDetailTeacherInfo",loader.get("/getDetailTeacherInfo"));
+app.post("/displaySearchInfo",loader.get("/displaySearchInfo"));
+app.post("/getSearchInfoList",loader.get("/getSearchInfoList"));
+
+//统计页面
+app.post("/getTotalInfo",loader.get("/getTotalInfo"));
 
 
 console.log('服务已启动')

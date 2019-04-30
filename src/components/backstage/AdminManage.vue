@@ -46,14 +46,14 @@
           <el-button size="mini" @click="adminInfo(scope.$index, scope.row)">查看详情</el-button>
           <el-button
             size="mini"
-            v-if="scope.row.admin_num == adminNumFlag || superFlag == 1"
+            v-if="(scope.row.admin_num == adminNumFlag) || (superFlag == 'true' && scope.row.super != 'true') || (admin_num=='66666')"
             @click="adminChange(scope.$index, scope.row)"
           >修改</el-button>
           <!-- <router-link to="/adminInfo"><el-button size="mini" >查看详情</el-button></router-link> -->
           <el-button
             size="mini"
             type="danger"
-            v-if="superFlag == 1"
+            v-if="(superFlag == 'true' && scope.row.super != 'true') || (admin_num=='66666' && scope.row.admin_num != '66666')"
             @click="handleDelete(scope.$index, scope.row)"
           >删除</el-button>
         </template>
@@ -62,7 +62,7 @@
         <template slot-scope="scope">
           <i
             class="el-icon-star-on"
-            v-if="scope.row.super == 1"
+            v-if="scope.row.super == 'true'"
             style="margin-left: 20px;color:#67c23a;font-size:30px;"
           ></i>
         </template>
@@ -95,6 +95,7 @@ export default {
     return {
       adminNumFlag: sessionStorage.adminNum,
       superFlag: sessionStorage.super,
+      admin_num: sessionStorage.adminNum,
       adminList: [],
       flag: true,
       allAdminTotal: 0,
@@ -137,7 +138,7 @@ export default {
               if (response.data.status == "ok") {
                 // window.location.href = response.data.url;
                 this.$router.push("/bgLogin");
-                sessionStorage.removeItem("adminNum");
+                // sessionStorage.removeItem("adminNum");
               }
             });
           })

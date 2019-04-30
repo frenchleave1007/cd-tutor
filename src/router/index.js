@@ -9,9 +9,7 @@ const ParentList = () => import('@/components/main/ParentList')
 const Details = () => import('@/components/main/Details')
 const Order = () => import('@/components/main/Order')
 const OrderStep1 = () => import('@/components/order/OrderStep1')
-const OrderStep2 = () => import('@/components/order/OrderStep2')
-const Pay = () => import('@/components/order/Pay')
-const PayOk = () => import('@/components/order/PayOk')
+const OrderOk = () => import('@/components/order/OrderOk')
 const Waiting = () => import('@/components/order/Waiting')
 const BgIndex = () => import('@/components/backstage/BgIndex')
 const BgLogin = () => import('@/components/backstage/BgLogin')
@@ -34,6 +32,8 @@ const ParentInfoChange = () => import('@/components/main/ParentInfoChange')
 const TeacherInfoCheck = () => import('@/components/backstage/TeacherInfoCheck')
 const ParentInfoCheck = () => import('@/components/backstage/ParentInfoCheck')
 const OtherManage = () => import('@/components/backstage/OtherManage')
+const TeacherTotalInfo = () => import('@/components/backstage/TeacherTotalInfo')
+const ParentTotalInfo = () => import('@/components/backstage/ParentTotalInfo')
 
 Vue.use(Router)
 
@@ -58,29 +58,11 @@ const router = new Router({
           path: 'teacherlist',
           name: 'teacherlist',
           component: TeacherList,
-          beforeEnter(to, from, next) {
-            if (sessionStorage.userName) {
-              next();
-            } else {
-              next({
-                name: 'login'
-              })
-            }
-          }
         },
         {
           path: 'parentlist',
           name: 'parentlist',
           component: ParentList,
-          beforeEnter(to, from, next) {
-            if (sessionStorage.userName) {
-              next();
-            } else {
-              next({
-                name: 'login'
-              })
-            }
-          }
         },
         {
           path: 'details',
@@ -184,7 +166,7 @@ const router = new Router({
           path: 'order',
           name: 'order',
           component: Order,
-          redirect: 'orderStep1',
+          redirect: '/orderStep1',
           beforeEnter(to, from, next) {
             if (sessionStorage.userName) {
               next();
@@ -201,19 +183,9 @@ const router = new Router({
               component: OrderStep1
             },
             {
-              path: '/orderStep2',
-              name: 'orderStep2',
-              component: OrderStep2
-            },
-            {
-              path: '/pay',
-              name: 'pay',
-              component: Pay
-            },
-            {
-              path: '/payOk',
-              name: 'payOk',
-              component: PayOk
+              path: '/orderOk',
+              name: 'orderOk',
+              component: OrderOk
             },
             {
               path: '/waiting',
@@ -257,8 +229,20 @@ const router = new Router({
         {
           path: 'totalInfo',
           name: 'totalInfo',
-          meta: ['数据总览'],
+          meta: ['全站统计','数据总览'],
           component: TotalInfo
+        },
+        {
+          path: 'teacherTotalInfo',
+          name: 'teacherTotalInfo',
+          meta: ['全站统计','家教信息统计'],
+          component: TeacherTotalInfo
+        },
+        {
+          path: 'parentTotalInfo',
+          name: 'parentTotalInfo',
+          meta: ['全站统计','家长信息统计'],
+          component: ParentTotalInfo
         },
         {
           path: 'adminManage',

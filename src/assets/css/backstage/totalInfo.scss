@@ -1,0 +1,44 @@
+.totalInfo{
+    width: 95%;
+    // height: 500px;
+    margin: 20px auto 0px;
+    padding-left: 20px;
+    padding-top: 20px;
+    border: 2px solid #ccc;
+    .top{
+        p{
+            font-size: 30px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    }
+    .el-row{
+        margin: 40px 0;
+    }
+    .el-col{
+        font-size: 24px;
+        margin-left: 40px;
+        text-align: center;
+        background-color: #e5e9f2;
+        border-radius: 6px;
+        padding: 5px 0;
+        span{
+            font-size: 16px;
+            color: #333;
+        }
+    }
+    .today{
+        background-color: #67C23A;
+        color: #fff;
+    }
+    .total{
+        background-color: #409EFF;
+        color: #fff;
+    }
+    .myChart{
+        width: 95%;
+        margin: 0 auto;
+        // border: 1px solid red;
+        height: 460px;
+    }
+}

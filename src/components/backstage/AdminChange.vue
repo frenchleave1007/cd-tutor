@@ -35,7 +35,16 @@
         <el-input v-model="ruleForm.change_time" disabled></el-input>
       </el-form-item>
       <el-form-item label="上传头像">
-       <input type="file" id="file">
+        <input type="file" id="file">
+      </el-form-item>
+      <el-form-item v-if="ruleForm.admin_num != '66666' && admin_num == '66666'" label="是否为超级管理员" prop="repassword">
+        <el-switch
+          v-model="isSuper"
+          active-color="#13ce66"
+          inactive-color="#ff4949"
+          active-text="是"
+          inactive-text="否"
+        ></el-switch>
       </el-form-item>
 
       <el-form-item>
@@ -88,10 +97,12 @@ export default {
       }
     };
     return {
-      adminNumUn:false,
-      phoneUn:false,
+      isSuper:false,
+      admin_num : sessionStorage.adminNum,
+      adminNumUn: false,
+      phoneUn: false,
       ruleForm: {},
-      choose:false,
+      choose: false,
       rules: {
         name: [{ validator: checkName, trigger: "blur" }],
         admin_num: [{ validator: checkAdminNum, trigger: "blur" }],
@@ -101,50 +112,50 @@ export default {
   },
   created() {
     this.ruleForm = this.$route.query;
-    // console.log(this.$route.query);
+    this.isSuper = this.ruleForm.super == 'true' ? true : false;
   },
   methods: {
     submitForm(formName) {
+      // console.log(this.ruleForm.super)
       this.adminNumUn = false;
       this.phoneUn = false;
-      console.log(this.getNowDate());
+      // console.log(this.getNowDate());
       this.$refs[formName].validate(valid => {
         if (valid) {
           var self = this; //this保留起来
 
           var file = document.getElementById("file").files[0];
-          if(file == undefined){
-            file = null
+          if (file == undefined) {
+            file = null;
           }
-          console.log(file)
+          // console.log(file);
 
           var form = new FormData();
           form.append("file", file);
-          console.log(form)
+          // console.log(form);
           form.append("id", this.ruleForm.id);
           form.append("name", this.ruleForm.name);
           form.append("admin_num", this.ruleForm.admin_num);
           form.append("phone", this.ruleForm.phone);
           form.append("change_time", this.getNowDate());
+          form.append("isSuper", this.isSuper);
           var config = {
-            headers:{'Content-Type':'multipart/form-data'}
-          };  //添加请求头
+            headers: { "Content-Type": "multipart/form-data" }
+          }; //添加请求头
 
           // alert("submit!");
-          this.axios
-            .post("/api/adminChange", form,config)
-            .then(response => {
-              console.log(response.data);
-              if (response.data.status == "ok") {
-                this.choose = true;
-              } else {
-                if (response.data.message == "phoneUn") {
-                  self.phoneUn = true;
-                } else if (response.data.message == "adminNumUn") {
-                  self.adminNumUn = true;
-                }
+          this.axios.post("/api/adminChange", form, config).then(response => {
+            // console.log(response.data);
+            if (response.data.status == "ok") {
+              this.choose = true;
+            } else {
+              if (response.data.message == "phoneUn") {
+                self.phoneUn = true;
+              } else if (response.data.message == "adminNumUn") {
+                self.adminNumUn = true;
               }
-            });
+            }
+          });
         } else {
           // console.log("error submit!!");
           return false;

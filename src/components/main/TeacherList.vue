@@ -6,17 +6,24 @@
         <el-breadcrumb-item>教师列表</el-breadcrumb-item>
       </el-breadcrumb>
     </el-row>
-    <el-row class="t-search">
+    <el-row class="t-search" v-if="this.$route.query.type == undefined">
       <dl v-for="(item, index) in searchList" :key="index">
         <dt>{{item.title}}：</dt>
         <dd v-for="(v,i) in item.value" :key="i">
-          <a href="#" :class="{'on':i == 0}" @click="select(index,i)">{{v}}</a>
+          <span :class="{'on':i == 0}" @click="select(index,i)">{{v}}</span>
         </dd>
       </dl>
     </el-row>
     <info-list :list="teacherInfoList"/>
     <div class="fenye-btn">
-      <el-pagination class="page-num" background layout="prev, pager, next" :total="100"></el-pagination>
+      <el-pagination
+        class="page-num"
+        background
+        layout="prev, pager, next"
+        @current-change="infoPageChange"
+        :page-size="10"
+        :total="teacherInfoTotal"
+      ></el-pagination>
     </div>
   </div>
 </template>
@@ -28,8 +35,42 @@ export default {
     InfoList
   },
   methods: {
-    select: function(index, i, e) {
+    getSearchInfo() {
+      var type =
+        this.$route.query.type == undefined ? "不限" : this.$route.query.type;
+      var key =
+        this.$route.query.key == undefined ? "不限" : this.$route.query.key;
+      var currentPage = this.currentPage;
+      this.axios
+        .post("/api/displaySearchInfo", {
+          type: type,
+          key: key,
+          table: "teacher",
+          currentPage: currentPage
+        })
+        .then(response => {
+          if (response.data.status == "ok") {
+            var data = response.data.result;
+            // console.log(data);
+            this.teacherInfoTotal = data[0][0]["count(*)"];
+            for (var i = 0; i < data[1].length; i++) {
+              data[1][i]["typeFlag"] = "true"; //标记为教师
+            }
+            this.teacherInfoList = data[1];
+          }
+        });
+    },
+    infoPageChange(currentPage) {
+      this.currentPage = currentPage;
+      if(this.$route.query.type == undefined){
+        this.getSearchInfoList();
+      }else{
+      this.getSearchInfo();
+      }
+    },
+    select(index, i) {
       var e = e || window.event;
+      // console.log(index,i,e.target.innerHTML)
       // console.log(e);
       // console.log(e.path[2].children);
       // console.log(e.target);
@@ -43,73 +84,129 @@ export default {
         }
       }
       e.target.classList.add("on");
+      this.searchArr[index] = e.target.innerHTML;
+      // console.log(this.searchArr);
+      this.getSearchInfoList();
+    },
+    getSearchInfoList() {
+      this.axios
+        .post("/api/getSearchInfoList", {
+          searchArr: this.searchArr,
+          table: "teacher",
+          currentPage: this.currentPage
+        })
+        .then(response => {
+          if (response.data.status == "ok") {
+            var data = response.data.result;
+            // console.log(data);
+            this.teacherInfoTotal = data[0][0]["count(*)"];
+            for (var i = 0; i < data[1].length; i++) {
+              data[1][i]["typeFlag"] = "true"; //标记为教师
+            }
+            this.teacherInfoList = data[1];
+          }
+        });
     }
   },
   data() {
     return {
-      arr: "",
-      searchList: [],
-      teacherInfoList: [
+      teacherInfoTotal: 0,
+      currentPage: 1,
+      teacherInfoList: [],
+      searchList: [
         {
-          flag: true, //true教师  false家长
-          image: "http://www.jiajiao114.com/images/w_default_avatar.jpg",
-          name: "高老师",
-          card: "123123",
-          graduatedSchool: "成都工业学院",
-          education: "研究生",
-          teachAge: "1年",
-          teacherJob: "在职教师",
-          teachLesson: "小学英语",
-          teachTime: "周六9:00-12:00",
-          price: "50 元/小时",
-          teachArea: "郫都区",
-          areaDis: "成都工业学院附近",
-          description:
-            "善于与孩子沟通，能够及时发现学生的问题，并掌握他们的优点和缺点，积极引导学生自助学习，并学会举一反三。本人性格开朗，做事认真负责，并获得过国家奖学金，让学生快乐成长。善于与孩子沟通，能够及时发现学生的问题，并掌握他们的优点和缺点，积极引导学生自助学习，并学会举一反三。本人性格开朗，做事认真负责，并获得过国家奖学金，让学生快乐成长。"
+          title: "授课区域",
+          value: [
+            // "锦江区",
+            // "青羊区",
+            // "金牛区",
+            // "武侯区",
+            // "成华区",
+            // "高新区",
+            // "龙泉驿区",
+            // "新都区",
+            // "温江区",
+            // "双流区",
+            // "郫都区",
+            // "邛崃市",
+            // "崇州市",
+            // "金堂县",
+            // "大邑县",
+            // "蒲江县",
+            // "新津县",
+            // "简阳市",
+            // "都江堰市",
+            // "彭州市"
+          ]
         },
         {
-          flag: true, //true教师  false家长
-          image: "http://www.jiajiao114.com/images/w_default_avatar.jpg",
-          name: "高老师",
-          card: "123123",
-          graduatedSchool: "成都工业学院",
-          education: "研究生",
-          teachAge: "1年",
-          teacherJob: "在职教师",
-          teachLesson: "小学英语",
-          teachTime: "周六9:00-12:00",
-          price: "50 元/小时",
-          teachArea: "郫都区",
-          areaDis: "成都工业学院附近",
-          description:
-            "善于与孩子沟通，能够及时发现学生的问题，并掌握他们的优点和缺点，积极引导学生自助学习，并学会举一反三。本人性格开朗，做事认真负责，并获得过国家奖学金，让学生快乐成长。善于与孩子沟通，能够及时发现学生的问题，并掌握他们的优点和缺点，积极引导学生自助学习，并学会举一反三。本人性格开朗，做事认真负责，并获得过国家奖学金，让学生快乐成长。"
+          title: "教授科目",
+          value: [
+            // "小学数学",
+            // "小学语文",
+            // "小学英语",
+            // "初中数学",
+            // "初中语文",
+            // "初中英语",
+            // "高中数学",
+            // "高中英语",
+            // "高中语文",
+            // "高中物理",
+            // "高中化学",
+            // "高中生物",
+            // "高中政治",
+            // "高中历史",
+            // "高中地理"
+          ]
         },
         {
-          flag: true, //true教师  false家长
-          image: "http://www.jiajiao114.com/images/w_default_avatar.jpg",
-          name: "高老师",
-          card: "123123",
-          graduatedSchool: "成都工业学院",
-          education: "研究生",
-          teachAge: "1年",
-          teacherJob: "在职教师",
-          teachLesson: "小学英语",
-          teachTime: "周六9:00-12:00",
-          price: "50 元/小时",
-          teachArea: "郫都区",
-          areaDis: "成都工业学院附近",
-          description:
-            "善于与孩子沟通，能够及时发现学生的问题，并掌握他们的优点和缺点，积极引导学生自助学习，并学会举一反三。本人性格开朗，做事认真负责，并获得过国家奖学金，让学生快乐成长。善于与孩子沟通，能够及时发现学生的问题，并掌握他们的优点和缺点，积极引导学生自助学习，并学会举一反三。本人性格开朗，做事认真负责，并获得过国家奖学金，让学生快乐成长。"
+          title: "授课时间",
+          value: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
+        },
+        {
+          title: "授课时段",
+          value: ["上午", "下午", "晚上"]
+        },
+        {
+          title: "薪资(每小时)",
+          value: ["100以下", "100-200", "200-300", "300以上"]
         }
+      ],
+      searchArr: [
+        "不限",
+        "不限",
+        "不限",
+        "不限",
+        "不限"
+        // teacharea: "不限",
+        // teachlesson: "不限",
+        // teachtime: "不限",
+        // teachtimesolt: "不限",
+        // price: "不限"
       ]
     };
   },
-  created(){
-    var tempArr = JSON.parse(JSON.stringify(this.$store.state.searchList));
-    for(var i=0;i<tempArr.length;i++){
-      tempArr[i].value.unshift('不限');
-      this.searchList.push(tempArr[i])
+  created() {
+    this.axios.get("/api/getSearchList").then(response => {
+      var data = response.data.result;
+      for (var i = 0; i < data[0].length; i++) {
+        this.searchList[0].value.push(data[0][i].name);
+      }
+      for (var i = 0; i < data[1].length; i++) {
+        this.searchList[1].value.push(data[1][i].name);
+      }
+    });
+    for (var i = 0; i < this.searchList.length; i++) {
+      this.searchList[i].value.unshift("不限");
     }
+    if (this.$route.query.type == undefined) {
+      this.getSearchInfoList();
+    } else {
+      this.getSearchInfo();
+    }
+  },
+  watch: {
+    $route: "getSearchInfo"
   }
 };
 </script>

@@ -31,12 +31,22 @@
         <el-form-item label="文化水平" prop="education">
           <el-input :disabled="isChange" v-model="ruleForm.education" placeholder="例如：大学本科"></el-input>
         </el-form-item>
+        <el-form-item label="获奖情况" prop="honor">
+          <el-input
+            :disabled="isChange"
+            type="textarea"
+            resize="none"
+            :autosize="{ minRows: 3, maxRows: 10}"
+            v-model="ruleForm.honor"
+            placeholder="请输入自己获奖的情况"
+          ></el-input>
+        </el-form-item>
         <el-form-item label="教龄" prop="teachage">
           <el-input :disabled="isChange" v-model="ruleForm.teachage" placeholder="例如：3年"></el-input>
         </el-form-item>
         <el-form-item label="职业" prop="teacherjob">
           <el-select :disabled="isChange" v-model="ruleForm.teacherjob" placeholder="请选择你的职业">
-            <el-option v-for="item in searchList[2].value" :key="item" :value="item"></el-option>
+            <el-option v-for="item in teacherjobList" :key="item.id" :value="item.name"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="教学科目" prop="teachlesson">
@@ -46,17 +56,35 @@
             multiple
             placeholder="请选择教学科目，可多选"
           >
-            <el-option v-for="item in searchList[1].value" :key="item" :value="item"></el-option>
+            <el-option v-for="item in teachlessonList" :key="item.id" :value="item.name"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="教学时间" prop="teachtime">
+        <el-form-item label="教学时间" prop="teachtime1">
           <el-select
             :disabled="isChange"
-            v-model="ruleForm.teachtime"
+            v-model="ruleForm.teachtime1"
             multiple
             placeholder="请选择教学时间，可多选"
           >
-            <el-option v-for="item in searchList[3].value" :key="item" :value="item"></el-option>
+            <el-option value="周一"></el-option>
+            <el-option value="周二"></el-option>
+            <el-option value="周三"></el-option>
+            <el-option value="周四"></el-option>
+            <el-option value="周五"></el-option>
+            <el-option value="周六"></el-option>
+            <el-option value="周日"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="教学时段" prop="teachtime2">
+          <el-select
+            v-model="ruleForm.teachtime2"
+            :disabled="isChange"
+            multiple
+            placeholder="请选择教学时段，可多选"
+          >
+            <el-option value="上午"></el-option>
+            <el-option value="下午"></el-option>
+            <el-option value="晚上"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="教学时间详细说明" prop="teachtimedis">
@@ -83,7 +111,7 @@
             multiple
             placeholder="请选择教学地点，可多选"
           >
-            <el-option v-for="item in searchList[0].value" :key="item" :value="item"></el-option>
+            <el-option v-for="item in areaList" :key="item.id" :value="item.name"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="教学地点详细说明" prop="areadis">
@@ -172,10 +200,8 @@ export default {
         callback();
       }
     };
-    var checkTeachTimeDis = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error("不能为空"));
-      } else if (value.length > 128) {
+    var checkTextarea = (rule, value, callback) => {
+      if (value.length > 128) {
         return callback(new Error("信息过长"));
       } else {
         callback();
@@ -191,7 +217,9 @@ export default {
     };
     return {
       isChange: true,
-      searchList: [],
+      teacherjobList: [],
+      teachlessonList: [],
+      areaList: [],
       ruleForm: {
         teacher_id: "",
         name: "",
@@ -201,10 +229,12 @@ export default {
         sex: "男",
         graduated: "",
         education: "",
+        honor: "",
         teachage: "",
         teacherjob: "",
         teachlesson: "",
-        teachtime: "",
+        teachtime1: "",
+        teachtime2: "",
         teachtimedis: "",
         price: "",
         teacharea: "",
@@ -217,11 +247,13 @@ export default {
         teachage: [{ validator: checkTeachAge, trigger: "blur" }],
         teacherjob: [{ validator: checkSelect, trigger: "change" }],
         teachlesson: [{ validator: checkSelectGroup, trigger: "change" }],
-        teachtime: [{ validator: checkSelectGroup, trigger: "change" }],
+        teachtime1: [{ validator: checkSelectGroup, trigger: "change" }],
+        teachtime2: [{ validator: checkSelectGroup, trigger: "change" }],
         teacharea: [{ validator: checkSelectGroup, trigger: "change" }],
-        teachtimedis: [{ validator: checkTeachTimeDis, trigger: "blur" }],
-        areadis: [{ validator: checkTeachTimeDis, trigger: "blur" }],
-        description: [{ validator: checkTeachTimeDis, trigger: "blur" }],
+        teachtimedis: [{ validator: checkTextarea, trigger: "blur" }],
+        areadis: [{ validator: checkTextarea, trigger: "blur" }],
+        honor: [{ validator: checkTextarea, trigger: "blur" }],
+        description: [{ validator: checkTextarea, trigger: "blur" }],
         price: [{ validator: checkPrice, trigger: "blur" }]
       }
     };
@@ -242,10 +274,12 @@ export default {
               sex: self.ruleForm.sex,
               graduated: self.ruleForm.graduated,
               education: self.ruleForm.education,
+              honor: self.ruleForm.honor,
               teachage: self.ruleForm.teachage,
               teacherjob: self.ruleForm.teacherjob,
               teachlesson: self.ruleForm.teachlesson.join(","),
-              teachtime: self.ruleForm.teachtime.join(","),
+              teachtime1: self.ruleForm.teachtime1.join(","),
+              teachtime2: self.ruleForm.teachtime2.join(","),
               teachtimedis: self.ruleForm.teachtimedis,
               price: self.ruleForm.price,
               teacharea: self.ruleForm.teacharea.join(","),
@@ -311,10 +345,18 @@ export default {
         self.ruleForm.teachlesson = response.data.result[0].teachlesson.split(
           ","
         );
-        self.ruleForm.teachtime = response.data.result[0].teachtime.split(",");
+        self.ruleForm.teachtime1 = response.data.result[0].teachtime.split(",");
         self.ruleForm.teacharea = response.data.result[0].teacharea.split(",");
+        self.ruleForm.teachtime2 = response.data.result[0].teachtimesolt.split(
+          ","
+        );
       });
-    this.searchList = JSON.parse(JSON.stringify(this.$store.state.searchList));
+    this.axios.get("/api/getSearchList").then(response => {
+      var data = response.data.result;
+      this.teacherjobList = data[2];
+      this.teachlessonList = data[1];
+      this.areaList = data[0];
+    });
   },
   mounted() {
     this.resetForm("ruleForm");

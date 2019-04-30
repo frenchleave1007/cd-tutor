@@ -41,7 +41,7 @@
           v-if="params.flag == '通过' || params.flag == '未审核'"
           @click="nopass"
         >不通过</el-button>
-        <router-link to="teacherInfo">
+        <router-link to="parentInfo">
           <el-button type="info">返回</el-button>
         </router-link>
       </div>

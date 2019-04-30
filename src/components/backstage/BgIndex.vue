@@ -3,9 +3,14 @@
     <el-col :span="4" class="left" style="min-width: 140px;">
       <el-menu :default-openeds="this.handleOpen()"  :unique-opened="true" router class="el-menu-vertical-demo"
       @open="handleOpen">
-        <el-menu-item index="totalInfo">
-          <i class="el-icon-view"></i>数据总览
-        </el-menu-item>
+        <el-submenu index="totalInfo">
+          <template slot="title">
+            <i class="el-icon-view"></i>全站统计
+          </template>
+          <el-menu-item index="totalInfo">数据总览</el-menu-item>
+          <el-menu-item index="teacherTotalInfo">教师信息统计</el-menu-item>
+          <el-menu-item index="parentTotalInfo">家长信息统计</el-menu-item>
+        </el-submenu>
         <el-submenu index="userManage">
           <template slot="title">
             <i class="el-icon-setting"></i>用户管理
@@ -19,12 +24,12 @@
           <el-menu-item index="teacherInfo">教师信息管理</el-menu-item>
           <el-menu-item index="parentInfo">家长信息管理</el-menu-item>
         </el-submenu>
-        <el-submenu index="order">
+        <!-- <el-submenu index="order">
           <template slot="title">
             <i class="el-icon-edit-outline"></i>订单管理
           </template>
           <el-menu-item index="orderManage">订单管理</el-menu-item>
-        </el-submenu>
+        </el-submenu> -->
         <el-submenu index="admin">
           <template slot="title">
             <i class="el-icon-star-off"></i>管理员管理
@@ -34,7 +39,7 @@
         </el-submenu>
         <el-submenu index="other">
           <template slot="title">
-            <i class="el-icon-more-outline"></i>其他
+            <i class="el-icon-more-outline"></i>更多管理
           </template>
           <el-menu-item index="otherManage">地点课程职业管理</el-menu-item>
         </el-submenu>

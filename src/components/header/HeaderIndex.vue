@@ -12,7 +12,7 @@
           <el-col class="header-right" :span="12">
             <router-link v-if="!flag" tag="a" :to="{name:'publish'}">我的发布</router-link>
             <router-link v-if="!flag" tag="a" :to="{name:'infoChange'}">信息修改</router-link>
-            <router-link v-if="!flag" tag="a" :to="{name:''}">我的订单</router-link>
+            <!-- <router-link v-if="!flag" tag="a" :to="{name:''}">我的订单</router-link> -->
             <span class="logout" v-if="!flag" @click="userLogout">退出登录</span>
             <span class="hot-call">家教热线：400-400-400</span>
           </el-col>

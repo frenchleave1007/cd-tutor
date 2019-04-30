@@ -39,7 +39,7 @@ function adminLogin(request, response) {
 
             // response.cookie("admin_num", result[0].admin_num)
 
-            response.send({ status: 'ok', adminNum: result[0].admin_num, adminName: result[0].name,super: result[0].super })
+            response.send({ status: 'ok', adminNum: result[0].admin_num, adminName: result[0].name, super: result[0].super })
         } else {
             response.send({ status: 'fail' })
         }
@@ -65,7 +65,7 @@ function insertAdmin(request, response) {
         createrName: request.body.createrName,
         createrNum: request.body.createrNum,
         createTime: request.body.createTime,
-        isSuper:request.body.isSuper
+        isSuper: request.body.isSuper
     }
     adminDao.insertAdmin(params, function (result) {
         if (!result.sqlMessage) {
@@ -113,11 +113,11 @@ function searchAdmin(request, response) {
 function adminChange(request, response) {
     // console.log(request.file.originalname);//原来的文件名和后缀
     // console.log(request.file.mimetype.indexOf('image') == 0);//  限制上传的文件必须是image类型
-    if(request.file == null || request.file.mimetype.indexOf('image') != 0){
+    if (request.file == null || request.file.mimetype.indexOf('image') != 0) {
         var picName = null;
         var picSize = null;
         var picPath = null;
-    }else{
+    } else {
         var picName = request.file.originalname;
         var picSize = request.file.size;
         var picPath = request.file.path;
@@ -132,6 +132,7 @@ function adminChange(request, response) {
         admin_num: request.body.admin_num,
         phone: request.body.phone,
         change_time: request.body.change_time,
+        isSuper: request.body.isSuper,
         pic_name: picName,
         pic_size: picSize,
         pic_path: picPath
@@ -151,6 +152,13 @@ function adminChange(request, response) {
     })
 }
 
+function getTotalInfo(request, response) {
+    var date = request.body.date;
+    adminDao.getTotalInfo(date,function (result) {
+        response.send({ status: 'ok', result: result });
+    })
+}
+
 path.set("/getAllAdmin", getAllAdmin);
 path.set("/adminLogin", adminLogin);
 path.set("/adminLogout", adminLogout);
@@ -158,5 +166,6 @@ path.set("/insertAdmin", insertAdmin);
 path.set("/deleteAdmin", deleteAdmin);
 path.set("/searchAdmin", searchAdmin);
 path.set("/adminChange", adminChange);
+path.set("/getTotalInfo", getTotalInfo);
 
 module.exports.path = path;

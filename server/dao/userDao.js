@@ -55,9 +55,9 @@ function userChange(params, success) {
 function teacherInfoChange(params, type, id, success) {
     var sql = "";
     if (type == 'add') {
-        sql = "insert into teacher (teacher_id,name,phone,email,card,pic_path,sex,graduated,education,teachage,teacherjob,teachlesson,teachtime,teachtimedis,price,teacharea,areadis,description,create_time,flag) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        sql = "insert into teacher (teacher_id,name,phone,email,card,pic_path,sex,graduated,education,honor,teachage,teacherjob,teachlesson,teachtime,teachtimesolt,teachtimedis,price,teacharea,areadis,description,create_time,flag) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     } else if (type == 'update') {
-        sql = "update teacher set teacher_id = ?,name = ?,phone = ?,email = ?,card = ?,pic_path = ?,sex = ?,graduated = ?,education = ?,teachage = ?,teacherjob = ?,teachlesson = ?,teachtime = ?,teachtimedis = ?,price = ?,teacharea = ?,areadis = ?,description = ?,create_time = ?,flag = ? where id = " + id + ";";
+        sql = "update teacher set teacher_id = ?,name = ?,phone = ?,email = ?,card = ?,pic_path = ?,sex = ?,graduated = ?,education = ?,honor=?,teachage = ?,teacherjob = ?,teachlesson = ?,teachtime = ?,teachtimesolt=?,teachtimedis = ?,price = ?,teacharea = ?,areadis = ?,description = ?,create_time = ?,flag = ? where id = " + id + ";";
     }
     // console.log(params)
     var connection = dbutil.createConnection();
@@ -134,9 +134,9 @@ function getTeacherChangeInfo(id, success) {
 function parentInfoChange(params, type, id, success) {
     var sql = "";
     if (type == 'add') {
-        sql = "insert into parent (parent_id,name,phone,email,pic_path,sex,education,teachage,teacherjob,teachlesson,teachtime,teachtimedis,price,teacharea,areadis,description,create_time,flag) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        sql = "insert into parent (parent_id,name,phone,email,pic_path,sex,education,teachage,teacherjob,teachlesson,teachtime,teachtimesolt,teachtimedis,price,teacharea,areadis,description,create_time,flag) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     } else if (type == 'update') {
-        sql = "update parent set parent_id = ?,name = ?,phone = ?,email = ?,pic_path = ?,sex = ?,education = ?,teachage = ?,teacherjob = ?,teachlesson = ?,teachtime = ?,teachtimedis = ?,price = ?,teacharea = ?,areadis = ?,description = ?,create_time = ?,flag = ? where id = " + id + ";";
+        sql = "update parent set parent_id = ?,name = ?,phone = ?,email = ?,pic_path = ?,sex = ?,education = ?,teachage = ?,teacherjob = ?,teachlesson = ?,teachtime = ?,teachtimesolt=?,teachtimedis = ?,price = ?,teacharea = ?,areadis = ?,description = ?,create_time = ?,flag = ? where id = " + id + ";";
     }
     // console.log(params)
     var connection = dbutil.createConnection();
@@ -462,20 +462,20 @@ function getSearchList(success) {
 
 function insertSearchValue(params, success) {
     var sql = "";
-    var value='';
-    if(params.area != ''){
+    var value = '';
+    if (params.area != '') {
         sql = "insert into area (name) values (?);";
         value = params.area;
-    }else if(params.lesson != ''){
+    } else if (params.lesson != '') {
         sql = "insert into lesson (name) values (?);";
         value = params.lesson;
-    }else{
+    } else {
         sql = "insert into teacherjob (name) values (?);";
         value = params.teacherjob;
     }
     var connection = dbutil.createConnection();
     connection.connect();//创建一个连接
-    connection.query(sql,value, function (error, result) {
+    connection.query(sql, value, function (error, result) {
         if (error == null) {
             // console.log(result);
             // console.log(result.length)
@@ -490,17 +490,17 @@ function insertSearchValue(params, success) {
 
 function deleteSearchValue(params, success) {
     var sql = "";
-    var value=params.id;
-    if(params.flag == 1){
+    var value = params.id;
+    if (params.flag == 1) {
         sql = "delete from area where id = ?;";
-    }else if(params.flag == 2){
+    } else if (params.flag == 2) {
         sql = "delete from lesson where id = ?;";
-    }else if(params.flag == 3){
+    } else if (params.flag == 3) {
         sql = "delete from teacherjob where id = ?;";
     }
     var connection = dbutil.createConnection();
     connection.connect();//创建一个连接
-    connection.query(sql,value, function (error, result) {
+    connection.query(sql, value, function (error, result) {
         if (error == null) {
             // console.log(result);
             // console.log(result.length)
@@ -515,17 +515,17 @@ function deleteSearchValue(params, success) {
 
 function updateSearchValue(params, success) {
     var sql = "";
-    var data = [params.value,params.id];
-    if(params.flag == 1){
+    var data = [params.value, params.id];
+    if (params.flag == 1) {
         sql = "update area set name = ? where id = ?;";
-    }else if(params.flag == 2){
+    } else if (params.flag == 2) {
         sql = "update lesson set name = ? where id = ?;";
-    }else if(params.flag == 3){
+    } else if (params.flag == 3) {
         sql = "update teacherjob set name = ? where id = ?;";
     }
     var connection = dbutil.createConnection();
     connection.connect();//创建一个连接
-    connection.query(sql,data, function (error, result) {
+    connection.query(sql, data, function (error, result) {
         if (error == null) {
             // console.log(result);
             // console.log(result.length)
@@ -561,6 +561,102 @@ function getSearchValue(params, success) {
     connection.end();//关闭连接
 }
 
+function getDisplayInfo(success) {
+    var sql = "select * from teacher where flag = '通过' order by create_time desc;select * from parent where flag = '通过' order by create_time desc;";
+    var connection = dbutil.createConnection();
+    connection.connect();//创建一个连接
+    connection.query(sql, function (error, result) {
+        if (error == null) {
+            // console.log(result);
+            // console.log(result.length)
+            success(result);
+        } else {
+            // throw new Error("error");
+            console.log(error)
+        }
+    });
+    connection.end();//关闭连接
+}
+
+function getDetailTeacherInfo(id, type, success) {
+    var sql = "select * from " + type + " where id = " + id + ";";
+    var connection = dbutil.createConnection();
+    connection.connect();//创建一个连接
+    connection.query(sql, function (error, result) {
+        if (error == null) {
+            // console.log(result);
+            // console.log(result.length)
+            success(result);
+        } else {
+            // throw new Error("error");
+            console.log(error)
+        }
+    });
+    connection.end();//关闭连接
+}
+
+function displaySearchInfo(params, success) {
+    // console.log(params)
+    var flag;
+    if (params.type == '课程名称') {
+        flag = 'teachlesson';
+    } else if (params.type == '教师名称' || params.type == '家长名称') {
+        flag = 'name';
+    } else if (params.type == '教学地点') {
+        flag = 'teacharea';
+    }
+    var value = params.key == "all" ? "" : params.key;
+    var page = (params.currentPage - 1) * 10;
+    var sql = "select count(*) from " + params.table + " where " + flag + " like '%" + value + "%' and flag = '通过';select * from " + params.table + " where " + flag + " like '%" + value + "%' and flag = '通过' limit " + page + ",10;";
+    var connection = dbutil.createConnection();
+    connection.connect();//创建一个连接
+    connection.query(sql, function (error, result) {
+        if (error == null) {
+            // console.log(result);
+            // console.log(result.length)
+            success(result);
+        } else {
+            // throw new Error("error");
+            console.log(error)
+        }
+    });
+    connection.end();//关闭连接
+}
+
+function getSearchInfoList(params, success) {
+    var page = (params.currentPage - 1) * 10;
+    var teachareaSql = params.teacharea == "不限" ? "" : " teacharea like '%" + params.teacharea + "%' and ";
+    var teachlessonSql = params.teachlesson == "不限" ? "" : " teachlesson like '%" + params.teachlesson + "%' and ";
+    var teachtimeSql = params.teachtime == "不限" ? "" : " teachtime like '%" + params.teachtime + "%' and ";
+    var teachtimesoltSql = params.teachtimesolt == "不限" ? "" : " teachtimesolt like '%" + params.teachtimesolt + "%' and ";
+    var priceSql = "";
+    if (params.price == "100以下") {
+        priceSql = " price <= 100 and ";
+    } else if (params.price == "100-200") {
+        priceSql = " price between 100 and 200 and ";
+    } else if (params.price == "200-300") {
+        priceSql = " price between 200 and 300 and ";
+    } else if (params.price == "300以上") {
+        priceSql = " price >= 300 and ";
+    }
+    var sql = "select count(*) from " + params.table + " where " + teachareaSql + teachlessonSql + teachtimeSql + teachtimesoltSql + priceSql + "flag = '通过';\
+    select * from " + params.table + " where " + teachareaSql + teachlessonSql + teachtimeSql + teachtimesoltSql + priceSql + "flag = '通过' limit " + page + ",10;";
+    // console.log(sql)
+    var connection = dbutil.createConnection();
+    connection.connect();//创建一个连接
+    connection.query(sql, function (error, result) {
+        if (error == null) {
+            // console.log(result);
+            // console.log(result.length)
+            success(result);
+        } else {
+            // throw new Error("error");
+            console.log(error)
+        }
+    });
+    connection.end();//关闭连接
+}
+
 module.exports = {
     "insertUser": insertUser,
     "queryUserByPhone": queryUserByPhone,
@@ -579,13 +675,17 @@ module.exports = {
     "adminDeleteTeacherInfo": adminDeleteTeacherInfo,
     "setTeacherInfoStatus": setTeacherInfoStatus,
     "canDelete": canDelete,
-    "getAllParentInfo":getAllParentInfo,
-    "searchParentInfo":searchParentInfo,
-    "adminDeleteParentInfo":adminDeleteParentInfo,
-    "setParentInfoStatus":setParentInfoStatus,
-    "getSearchList":getSearchList,
-    "insertSearchValue":insertSearchValue,
-    "deleteSearchValue":deleteSearchValue,
-    "updateSearchValue":updateSearchValue,
-    "getSearchValue":getSearchValue
+    "getAllParentInfo": getAllParentInfo,
+    "searchParentInfo": searchParentInfo,
+    "adminDeleteParentInfo": adminDeleteParentInfo,
+    "setParentInfoStatus": setParentInfoStatus,
+    "getSearchList": getSearchList,
+    "insertSearchValue": insertSearchValue,
+    "deleteSearchValue": deleteSearchValue,
+    "updateSearchValue": updateSearchValue,
+    "getSearchValue": getSearchValue,
+    "getDisplayInfo": getDisplayInfo,
+    "getDetailTeacherInfo": getDetailTeacherInfo,
+    "displaySearchInfo": displaySearchInfo,
+    "getSearchInfoList": getSearchInfoList
 }
