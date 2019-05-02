@@ -159,6 +159,18 @@ function getTotalInfo(request, response) {
     })
 }
 
+function getAllLessonAndArea(request, response) {
+    adminDao.getAllLessonAndArea(function (result) {
+        response.send({ status: 'ok', result: result });
+    })
+}
+
+function getAllLessonAndTeachtime(request, response) {
+    adminDao.getAllLessonAndTeachtime(function (result) {
+        response.send({ status: 'ok', result: result });
+    })
+}
+
 path.set("/getAllAdmin", getAllAdmin);
 path.set("/adminLogin", adminLogin);
 path.set("/adminLogout", adminLogout);
@@ -167,5 +179,7 @@ path.set("/deleteAdmin", deleteAdmin);
 path.set("/searchAdmin", searchAdmin);
 path.set("/adminChange", adminChange);
 path.set("/getTotalInfo", getTotalInfo);
+path.set("/getAllLessonAndArea", getAllLessonAndArea);
+path.set("/getAllLessonAndTeachtime", getAllLessonAndTeachtime);
 
 module.exports.path = path;

@@ -235,7 +235,7 @@ const router = new Router({
         {
           path: 'teacherTotalInfo',
           name: 'teacherTotalInfo',
-          meta: ['全站统计','家教信息统计'],
+          meta: ['全站统计','教师信息统计'],
           component: TeacherTotalInfo
         },
         {

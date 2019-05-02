@@ -112,6 +112,8 @@ app.post("/getSearchInfoList",loader.get("/getSearchInfoList"));
 
 //统计页面
 app.post("/getTotalInfo",loader.get("/getTotalInfo"));
+app.get("/getAllLessonAndArea",loader.get("/getAllLessonAndArea"));
+app.get("/getAllLessonAndTeachtime",loader.get("/getAllLessonAndTeachtime"));
 
 
 console.log('服务已启动')

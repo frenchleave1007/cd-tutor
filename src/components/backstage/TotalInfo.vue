@@ -49,9 +49,9 @@
 
 <script>
 import echarts from "echarts/lib/echarts";
-// 引入柱状图
-import "echarts/lib/chart/bar";
-import "echarts/lib/chart/line";
+
+import "echarts/lib/chart/bar"; // 引入柱状图
+import "echarts/lib/chart/line"; //折线图
 import "echarts/lib/component/title";
 import "echarts/lib/component/legend";
 import "echarts/lib/component/toolbox";
@@ -95,6 +95,7 @@ export default {
         this.newInfo.admin = data[5][0]["count(*)"];
         this.newInfo.teacher = data[6][0]["count(*)"];
         this.newInfo.parent = data[7][0]["count(*)"];
+        this.dataList[2].reverse();
         for (var i = 0; i < this.dataList.length; i++) {
           var count = i + 4;
           this.dataList[i] = [];
@@ -104,11 +105,10 @@ export default {
           }
           this.dataList[i].reverse();
         }
-        this.initData();
       });
   },
   mounted() {
-    // this.initData();
+    this.initData();
   },
   methods: {
     initData() {
@@ -225,16 +225,15 @@ export default {
       var tDate = ("0" + today.getDate()).slice(-2);
       return tYear + "-" + tMonth + "-" + tDate;
     }
+  },
+  watch: {
+    dataList: {
+      deep: true,
+      handler: function(newVal, oldVal) {
+        this.initData();
+      }
+    }
   }
-  // watch: {
-  //   dataList: {
-  //     deep: true,
-  //     handler: function(newVal, oldVal) {
-  //       console.log("newValue", newVal);
-  //       console.log("oldValue", oldVal.text);
-  //     }
-  //   }
-  // }
 };
 </script>
 

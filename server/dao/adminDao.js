@@ -204,6 +204,36 @@ function getTotalInfo(date, success) {
     connection.end();//关闭连接
 }
 
+function getAllLessonAndArea(success) {
+    // console.log(date)
+    var sql = "select teachlesson from teacher;select teacharea from teacher;"
+    var connection = dbutil.createConnection();
+    connection.connect();//创建一个连接
+    connection.query(sql, function (error, result) {
+        if (error == null) {
+            success(result);
+        } else {
+            console.log(error);
+        }
+    });
+    connection.end();//关闭连接
+}
+
+function getAllLessonAndTeachtime(success) {
+    // console.log(date)
+    var sql = "select teachlesson from parent;select teachtime from parent;select teachtimesolt from parent;"
+    var connection = dbutil.createConnection();
+    connection.connect();//创建一个连接
+    connection.query(sql, function (error, result) {
+        if (error == null) {
+            success(result);
+        } else {
+            console.log(error);
+        }
+    });
+    connection.end();//关闭连接
+}
+
 module.exports = {
     "queryAllAdmin": queryAllAdmin,
     "insertAdmin": insertAdmin,
@@ -211,5 +241,7 @@ module.exports = {
     "deleteAdmin": deleteAdmin,
     "searchAdmin": searchAdmin,
     "adminChange": adminChange,
-    "getTotalInfo": getTotalInfo
+    "getTotalInfo": getTotalInfo,
+    "getAllLessonAndArea":getAllLessonAndArea,
+    "getAllLessonAndTeachtime":getAllLessonAndTeachtime
 }
