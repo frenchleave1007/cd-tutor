@@ -69,7 +69,7 @@
 export default {
   data() {
     var checkUserName = (rule, value, callback) => {
-      //用户名正则，4到16位（字母，数字，汉字）
+      //用户名正则，2到16位（字母，数字，汉字）
       var userNameReg = /^[a-zA-Z0-9\u4E00-\u9FA5]{2,16}$/;
       if (!userNameReg.test(value)) {
         callback(new Error("格式错误！请输入2-16位的汉字、字母或数字"));
@@ -147,7 +147,7 @@ export default {
               createTime: self.getNowDate()
             })
             .then(response => {
-              console.log(response.data);
+              // console.log(response.data);
               if (response.data.status == "ok") {
                 this.regSuccess = true;
               } else {

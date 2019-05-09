@@ -132,7 +132,7 @@ export default {
           {
             name: "需求年级科目",
             type: "pie",
-            radius: [20, 250],
+            radius: [20, 200],
             center: ["50%", "45%"],
             roseType: "area",
             label: {

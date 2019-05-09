@@ -5,7 +5,7 @@
         <div class="wrapper">
           <div class="t-left">
             <img
-              :src="item.pic_path == 'null' ? '../../../static/images/default.jpg' : '/' + item.pic_path"
+              :src="item.pic_path == 'null' || item.pic_path == undefined ? '../../../static/images/default.jpg' : '/' + item.pic_path"
             >
             <p class="t-name">{{item.name}}</p>
             <p class="t-card" v-if="item.typeFlag">编号：{{item.card}}</p>

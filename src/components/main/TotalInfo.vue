@@ -37,7 +37,7 @@ export default {
     return {
       teacherInfoList: [
         {
-          flag: true, //true教师  false家长
+          typeFlag: true, //true教师  false家长
           image: "http://www.jiajiao114.com/images/w_default_avatar.jpg",
           name: "高老师",
           card: "123123",
@@ -54,7 +54,7 @@ export default {
             "善于与孩子沟通，能够及时发现学生的问题，并掌握他们的优点和缺点，积极引导学生自助学习，并学会举一反三。本人性格开朗，做事认真负责，并获得过国家奖学金，让学生快乐成长。善于与孩子沟通，能够及时发现学生的问题，并掌握他们的优点和缺点，积极引导学生自助学习，并学会举一反三。本人性格开朗，做事认真负责，并获得过国家奖学金，让学生快乐成长。"
         },
         {
-          flag: true, //true教师  false家长
+          typeFlag: true, //true教师  false家长
           image: "http://www.jiajiao114.com/images/w_default_avatar.jpg",
           name: "高老师",
           card: "123123",
@@ -71,7 +71,7 @@ export default {
             "善于与孩子沟通，能够及时发现学生的问题，并掌握他们的优点和缺点，积极引导学生自助学习，并学会举一反三。本人性格开朗，做事认真负责，并获得过国家奖学金，让学生快乐成长。善于与孩子沟通，能够及时发现学生的问题，并掌握他们的优点和缺点，积极引导学生自助学习，并学会举一反三。本人性格开朗，做事认真负责，并获得过国家奖学金，让学生快乐成长。"
         },
         {
-          flag: true, //true教师  false家长
+          typeFlag: true, //true教师  false家长
           image: "http://www.jiajiao114.com/images/w_default_avatar.jpg",
           name: "高老师",
           card: "123123",
@@ -90,7 +90,7 @@ export default {
       ],
       parentInfoList: [
         {
-          flag: false, //true教师  false家长
+          typeFlag: false, //true教师  false家长
           image: "http://www.jiajiao114.com/images/w_default_avatar.jpg",
           name: "高家长",
           education: "博士",
@@ -105,7 +105,7 @@ export default {
             "善于与孩子沟通，能够及时发现学生的问题，并掌握他们的优点和缺点，积极引导学生自助学习，并学会举一反三。本人性格开朗，做事认真负责，并获得过国家奖学金，让学生快乐成长。善于与孩子沟通，能够及时发现学生的问题，并掌握他们的优点和缺点，积极引导学生自助学习，并学会举一反三。本人性格开朗，做事认真负责，并获得过国家奖学金，让学生快乐成长。"
         },
         {
-          flag: false, //true教师  false家长
+          typeFlag: false, //true教师  false家长
           image: "http://www.jiajiao114.com/images/w_default_avatar.jpg",
           name: "高家长",
           education: "博士",
@@ -120,7 +120,7 @@ export default {
             "善于与孩子沟通，能够及时发现学生的问题，并掌握他们的优点和缺点，积极引导学生自助学习，并学会举一反三。本人性格开朗，做事认真负责，并获得过国家奖学金，让学生快乐成长。善于与孩子沟通，能够及时发现学生的问题，并掌握他们的优点和缺点，积极引导学生自助学习，并学会举一反三。本人性格开朗，做事认真负责，并获得过国家奖学金，让学生快乐成长。"
         },
         {
-          flag: false, //true教师  false家长
+          typeFlag: false, //true教师  false家长
           image: "http://www.jiajiao114.com/images/w_default_avatar.jpg",
           name: "高家长",
           education: "博士",

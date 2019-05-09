@@ -56,48 +56,42 @@
 export default {
   data() {
     var checkName = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入管理员名称"));
-      } else if (value.length < 2 || value.length > 16) {
-        callback(new Error("管理员名称长度4-16"));
+      var userNameReg = /^[a-zA-Z0-9\u4E00-\u9FA5]{2,16}$/;
+      if (!userNameReg.test(value)) {
+        callback(new Error("格式错误！请输入2-16位的汉字、字母或数字"));
       } else {
         callback();
       }
     };
     var checkAdminNum = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入管理员编号"));
-      } else if (value.length != 5) {
-        callback(new Error("管理员编号长度5"));
+      var adminNumReg = /^[0-9]{5}$/;
+      if (!adminNumReg.test(value)) {
+        callback(new Error("格式错误！请输入5位数字"));
       } else {
         callback();
       }
     };
     var checkPhone = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入手机号"));
-      } else if (value.length != 11) {
-        callback(new Error("请输入11位手机号"));
+      var phoneReg = /^1[34578]\d{9}$/;
+      if (!phoneReg.test(value)) {
+        callback(new Error("格式错误！请输入正确的11位手机号"));
       } else {
         callback();
       }
     };
     var checkPassword = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入密码"));
-      } else if (value.length < 4 || value.length > 16) {
-        callback(new Error("密码长度4-16"));
+      var pwdReg = /^[a-zA-Z0-9_]{6,16}$/;
+      if (!pwdReg.test(value)) {
+        callback(new Error("密码格式：6-16位的数字、字母或下划线"));
       } else {
         callback();
       }
     };
     var checkRePassword = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请确认密码"));
-      } else if (value.length < 4 || value.length > 16) {
-        callback(new Error("密码长度4-16"));
-      } else if (value !== this.ruleForm.password) {
-        callback(new Error("两次输入的密码不一致"));
+      if (!value) {
+        callback(new Error("请再次输入密码！"));
+      } else if (value !== this.regForm.password) {
+        callback(new Error("两次输入的密码不一致！"));
       } else {
         callback();
       }
@@ -147,7 +141,7 @@ export default {
               createTime: self.getNowDate()
             })
             .then(response => {
-              console.log(response.data);
+              // console.log(response.data);
               if (response.data.status == "ok") {
                 this.addForm = false;
                 this.choose = true;

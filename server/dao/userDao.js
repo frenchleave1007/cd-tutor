@@ -36,8 +36,17 @@ function queryUserByPhone(params, success) {
 
 function userChange(params, success) {
     // console.log(params)
-    var paramsArr = [params.name, params.phone, params.email, params.password, params.pic_name, params.pic_size, params.pic_path, params.id]
-    var updateSql = "update user set name = ?, phone = ?, email = ?, password = ?, pic_name = ?, pic_size = ?, pic_path = ? where id = ?;";
+    var paramsArr,
+        updateSql;
+    if (params.pic_path == null) {
+        paramsArr = [params.name, params.phone, params.email, params.password, params.id];
+        updateSql = "update user set name = ?, phone = ?, email = ?, password = ? where id = ?;";
+    } else {
+        paramsArr = [params.name, params.phone, params.email, params.password, params.pic_name, params.pic_size, params.pic_path, params.id];
+        updateSql = "update user set name = ?, phone = ?, email = ?, password = ?, pic_name = ?, pic_size = ?, pic_path = ? where id = ?;";
+    }
+    // var paramsArr = [params.name, params.phone, params.email, params.password, params.pic_name, params.pic_size, params.pic_path, params.id]
+    // var updateSql = "update user set name = ?, phone = ?, email = ?, password = ?, pic_name = ?, pic_size = ?, pic_path = ? where id = ?;";
     var connection = dbutil.createConnection();
     connection.connect();//创建一个连接
     connection.query(updateSql, paramsArr, function (error, result) {

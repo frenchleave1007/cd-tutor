@@ -15,7 +15,7 @@ var querystring = require('querystring');//解析如‘a=1&b=2’为对象
 
 
 var multer = require("multer");//上传文件
-console.log(__dirname)
+// console.log(__dirname)
 var uploadSingle = multer({dest: "./static/images/adminPic/"});//指定文件上传到哪里
 
 var globalConfig = require("./config");
