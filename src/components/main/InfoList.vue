@@ -47,9 +47,9 @@
               <dt>期望薪资：</dt>
               <dd>{{item.price}} 元/小时</dd>
               <dt>授课地点：</dt>
-              <dd>{{item.teacharea}}( {{item.areadis}} )</dd>
+              <dd>{{item.teacharea}}( {{item.areadis == "" ? "暂无详细":item.areadis}} )</dd>
             </dl>
-            <p>更多描述：{{item.description}}</p>
+            <p>更多描述：{{item.description == "" ? "暂无":item.description}}</p>
             <div class="more-btn">
               <router-link
                 :to="{name:'details',query:{id:item.id,teacher_id:item.teacher_id}}"

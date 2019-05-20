@@ -104,6 +104,7 @@ export default {
               data[1][i]["typeFlag"] = "true"; //标记为教师
             }
             this.teacherInfoList = data[1];
+            // console.log(this.teacherInfoList)
           }
         });
     }

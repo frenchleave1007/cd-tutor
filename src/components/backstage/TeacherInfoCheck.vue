@@ -26,7 +26,7 @@
         <p>
           头像：
           <img
-            :src="params.pic_path == null ? '../../../static/images/default.jpg' : '/' + params.pic_path"
+            :src="params.pic_path == 'null' ? '../../../static/images/default.jpg' : '/' + params.pic_path"
           >
         </p>
       </el-col>
