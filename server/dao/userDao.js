@@ -549,12 +549,12 @@ function updateSearchValue(params, success) {
 
 function getSearchValue(params, success) {
     console.log(params)
-    var areaPage = (params.areaPage - 1) * 10;
-    var lessonPage = (params.lessonPage - 1) * 10;
-    var teacherjobPage = (params.teacherjobPage - 1) * 10;
-    var sql = "select count(*) from area;select * from area limit " + areaPage + ",10;\
-                select count(*) from lesson;select * from lesson limit " + lessonPage + ",10;\
-                select count(*) from teacherjob;select * from teacherjob limit " + teacherjobPage + ",10;";
+    var areaPage = (params.areaPage - 1) * 8;
+    var lessonPage = (params.lessonPage - 1) * 8;
+    var teacherjobPage = (params.teacherjobPage - 1) * 8;
+    var sql = "select count(*) from area;select * from area limit " + areaPage + ",8;\
+                select count(*) from lesson;select * from lesson limit " + lessonPage + ",8;\
+                select count(*) from teacherjob;select * from teacherjob limit " + teacherjobPage + ",8;";
     var connection = dbutil.createConnection();
     connection.connect();//创建一个连接
     connection.query(sql, function (error, result) {
@@ -640,7 +640,7 @@ function getSearchInfoList(params, success) {
     var teachtimesoltSql = params.teachtimesolt == "不限" ? "" : " teachtimesolt like '%" + params.teachtimesolt + "%' and ";
     var priceSql = "";
     if (params.price == "100以下") {
-        priceSql = " price <= 100 and ";
+        priceSql = " price < 100 and ";
     } else if (params.price == "100-200") {
         priceSql = " price between 100 and 200 and ";
     } else if (params.price == "200-300") {

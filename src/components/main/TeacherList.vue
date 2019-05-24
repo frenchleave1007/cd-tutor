@@ -34,81 +34,6 @@ export default {
   components: {
     InfoList
   },
-  methods: {
-    getSearchInfo() {
-      var type =
-        this.$route.query.type == undefined ? "不限" : this.$route.query.type;
-      var key =
-        this.$route.query.key == undefined ? "不限" : this.$route.query.key;
-      var currentPage = this.currentPage;
-      this.axios
-        .post("/api/displaySearchInfo", {
-          type: type,
-          key: key,
-          table: "teacher",
-          currentPage: currentPage
-        })
-        .then(response => {
-          if (response.data.status == "ok") {
-            var data = response.data.result;
-            // console.log(data);
-            this.teacherInfoTotal = data[0][0]["count(*)"];
-            for (var i = 0; i < data[1].length; i++) {
-              data[1][i]["typeFlag"] = "true"; //标记为教师
-            }
-            this.teacherInfoList = data[1];
-          }
-        });
-    },
-    infoPageChange(currentPage) {
-      this.currentPage = currentPage;
-      if(this.$route.query.type == undefined){
-        this.getSearchInfoList();
-      }else{
-      this.getSearchInfo();
-      }
-    },
-    select(index, i) {
-      var e = e || window.event;
-      // console.log(index,i,e.target.innerHTML)
-      // console.log(e);
-      // console.log(e.path[2].children);
-      // console.log(e.target);
-      // e.target.classList.add("on");
-      //获得点击a标签的上两层父级的子元素得到obj对象，遍历obj(类数组)，如果obj存在子元素并且子元素类数组的第一位有值（a标签）,则移除class，最后添加class
-      var obj = e.path[2].children;
-      for (var a in obj) {
-        // console.log(obj[a].children , obj[a].children[0])
-        if (obj[a].children && obj[a].children[0]) {
-          obj[a].children[0].classList.remove("on");
-        }
-      }
-      e.target.classList.add("on");
-      this.searchArr[index] = e.target.innerHTML;
-      // console.log(this.searchArr);
-      this.getSearchInfoList();
-    },
-    getSearchInfoList() {
-      this.axios
-        .post("/api/getSearchInfoList", {
-          searchArr: this.searchArr,
-          table: "teacher",
-          currentPage: this.currentPage
-        })
-        .then(response => {
-          if (response.data.status == "ok") {
-            var data = response.data.result;
-            // console.log(data);
-            this.teacherInfoTotal = data[0][0]["count(*)"];
-            for (var i = 0; i < data[1].length; i++) {
-              data[1][i]["typeFlag"] = "true"; //标记为教师
-            }
-            this.teacherInfoList = data[1];
-            // console.log(this.teacherInfoList)
-          }
-        });
-    }
-  },
   data() {
     return {
       teacherInfoTotal: 0,
@@ -186,6 +111,82 @@ export default {
         // price: "不限"
       ]
     };
+  },
+  methods: {
+    getSearchInfo() {
+      var type =
+        this.$route.query.type == undefined ? "不限" : this.$route.query.type;
+      var key =
+        this.$route.query.key == undefined ? "不限" : this.$route.query.key;
+      var currentPage = this.currentPage;
+      console.log(type,key)
+      this.axios
+        .post("/api/displaySearchInfo", {
+          type: type,
+          key: key,
+          table: "teacher",
+          currentPage: currentPage
+        })
+        .then(response => {
+          if (response.data.status == "ok") {
+            var data = response.data.result;
+            // console.log(data);
+            this.teacherInfoTotal = data[0][0]["count(*)"];
+            for (var i = 0; i < data[1].length; i++) {
+              data[1][i]["typeFlag"] = "true"; //标记为教师
+            }
+            this.teacherInfoList = data[1];
+          }
+        });
+    },
+    infoPageChange(currentPage) {
+      this.currentPage = currentPage;
+      if(this.$route.query.type == undefined){
+        this.getSearchInfoList();
+      }else{
+      this.getSearchInfo();
+      }
+    },
+    select(index, i) {
+      var e = e || window.event;
+      // console.log(index,i,e.target.innerHTML)
+      // console.log(e);
+      // console.log(e.path[2].children);
+      // console.log(e.target);
+      // e.target.classList.add("on");
+      //获得点击a标签的上两层父级的子元素得到obj对象，遍历obj(类数组)，如果obj存在子元素并且子元素类数组的第一位有值（a标签）,则移除class，最后添加class
+      var obj = e.path[2].children;
+      for (var a in obj) {
+        // console.log(obj[a].children , obj[a].children[0])
+        if (obj[a].children && obj[a].children[0]) {
+          obj[a].children[0].classList.remove("on");
+        }
+      }
+      e.target.classList.add("on");
+      this.searchArr[index] = e.target.innerHTML;
+      // console.log(this.searchArr);
+      this.getSearchInfoList();
+    },
+    getSearchInfoList() {
+      this.axios
+        .post("/api/getSearchInfoList", {
+          searchArr: this.searchArr,
+          table: "teacher",
+          currentPage: this.currentPage
+        })
+        .then(response => {
+          if (response.data.status == "ok") {
+            var data = response.data.result;
+            // console.log(data);
+            this.teacherInfoTotal = data[0][0]["count(*)"];
+            for (var i = 0; i < data[1].length; i++) {
+              data[1][i]["typeFlag"] = "true"; //标记为教师
+            }
+            this.teacherInfoList = data[1];
+            // console.log(this.teacherInfoList)
+          }
+        });
+    }
   },
   created() {
     this.axios.get("/api/getSearchList").then(response => {

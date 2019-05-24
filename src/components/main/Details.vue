@@ -54,8 +54,8 @@
               <div class="details-list-content">{{dataList.teacharea}}</div>
             </div>
             <div class="details-wrapper">
-              <div class="details-list-title">详细地址：</div>
-              <div class="details-list-content">{{dataList.areadis}}</div>
+              <div class="details-list-title">详细地址说明：</div>
+              <div class="details-list-content">{{dataList.areadis == "" ? "暂无" : dataList.areadis}}</div>
             </div>
             <div class="details-wrapper">
               <div class="details-list-title">授课时间：</div>
@@ -63,7 +63,7 @@
             </div>
             <div class="details-wrapper">
               <div class="details-list-title">授课时间详细说明：</div>
-              <div class="details-list-content">{{dataList.teachtimedis}}</div>
+              <div class="details-list-content">{{dataList.teachtimedis == "" ? "暂无" : dataList.teachtimedis}}</div>
             </div>
             <div class="details-wrapper">
               <div class="details-list-title">薪资要求：</div>
@@ -78,15 +78,10 @@
               <div class="details-list-content">{{dataList.email}}</div>
             </div>
             <div class="details-wrapper">
-              <div class="details-list-title">更多描述：</div>
-              <div class="details-list-content">{{dataList.description}}</div>
+              <div class="details-list-title">备注信息：</div>
+              <div class="details-list-content">{{dataList.description == "" ? "暂无" : dataList.description}}</div>
             </div>
           </el-col>
-          <!-- <el-col class="orderBtn" :span="8">
-            <router-link :to="{name:'order'}">
-              <el-button type="success">立即预约</el-button>
-            </router-link>
-          </el-col> -->
         </div>
       </div>
     </el-row>

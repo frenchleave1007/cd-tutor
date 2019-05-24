@@ -81,13 +81,13 @@
           placeholder="请输入教学地点的详细说明，例如：郫都区成都工业学院附近"
         ></el-input>
       </el-form-item>
-      <el-form-item label="情况说明" prop="description">
+      <el-form-item label="备注信息" prop="description">
         <el-input
           type="textarea"
           resize="none"
           :autosize="{ minRows: 3, maxRows: 10}"
           v-model="ruleForm.description"
-          placeholder="请输入对自己的情况简单说明"
+          placeholder="请输入备注信息"
         ></el-input>
       </el-form-item>
 

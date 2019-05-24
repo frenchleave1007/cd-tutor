@@ -15,7 +15,7 @@
               <dt>教师学历：</dt>
               <dd>{{item.graduated}} ( {{item.education}} )</dd>
               <dt>获得荣誉：</dt>
-              <dd>{{item.honor == null?"暂无":item.honor}}</dd>
+              <dd>{{item.honor == ""?"暂无":item.honor}}</dd>
               <dt>教龄：</dt>
               <dd>{{item.teachage}}</dd>
               <dt>教师类型：</dt>
@@ -49,7 +49,7 @@
               <dt>授课地点：</dt>
               <dd>{{item.teacharea}}( {{item.areadis == "" ? "暂无详细":item.areadis}} )</dd>
             </dl>
-            <p>更多描述：{{item.description == "" ? "暂无":item.description}}</p>
+            <p>备注信息：{{item.description == "" ? "暂无":item.description}}</p>
             <div class="more-btn">
               <router-link
                 :to="{name:'details',query:{id:item.id,teacher_id:item.teacher_id}}"
